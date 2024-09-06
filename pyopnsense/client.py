@@ -60,11 +60,11 @@ class OPNClient(object):
         )
         return self._process_response(response, raw)
 
-    def _post(self, endpoint, body, raw=False):
+    def _post(self, endpoint, data, raw=False):
         req_url = "{}/{}".format(self.base_url, endpoint)
         response = requests.post(
             req_url,
-            data=body,
+            json=data,
             verify=self.verify_cert,
             auth=(self.api_key, self.api_secret),
             timeout=self.timeout,
