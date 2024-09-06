@@ -58,10 +58,10 @@ class TestOPNClient(base.TestCase):
         response_mock.text = json.dumps({"a": "body"})
         request_mock.return_value = response_mock
         opnclient = client.OPNClient("", "", "")
-        resp = opnclient._post("fake_url", "body")
+        resp = opnclient._post("fake_url", {})
         self.assertEqual({"a": "body"}, resp)
         request_mock.assert_called_once_with(
-            "/fake_url", data="body", auth=("", ""), timeout=5, verify=False
+            "/fake_url", json={}, auth=("", ""), timeout=5, verify=False
         )
 
     @mock.patch("requests.post")
@@ -71,7 +71,7 @@ class TestOPNClient(base.TestCase):
         response_mock.text = json.dumps({"a": "body"})
         request_mock.return_value = response_mock
         opnclient = client.OPNClient("", "", "")
-        self.assertRaises(exceptions.APIException, opnclient._post, "fake_url", "body")
+        self.assertRaises(exceptions.APIException, opnclient._post, "fake_url", {})
         request_mock.assert_called_once_with(
-            "/fake_url", data="body", auth=("", ""), timeout=5, verify=False
+            "/fake_url", json={}, auth=("", ""), timeout=5, verify=False
         )
