@@ -16,16 +16,6 @@
 # along with pyopnsense. If not, see <http://www.gnu.org/licenses/>.
 
 from pyopnsense import client
-from pyopnsense.base_namespace import BaseNamespace
-
-class Dhcpv4Namespace(BaseNamespace):
-    """Namespace for Dhcpv4-related API clients."""
-
-    @property
-    def service(self):
-        return self._initialize_client("service", ServiceClient)
-
-
 
 class ServiceClient(client.OPNClient):
     """A client for interacting with the dhcpv4/service endpoint.
@@ -36,9 +26,5 @@ class ServiceClient(client.OPNClient):
     """
 
     def status(self):
-        """Return the current netflow status.
-
-        :returns: A dict representing the current status of netflow
-        :rtype: dict
-        """
+        """Return the status of the Dhcvpv4 service."""
         return self._get("dhcpv4/service/status")

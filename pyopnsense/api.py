@@ -2,8 +2,8 @@ from pathlib import Path
 import logging
 from typing import Optional, Union
 from pyopnsense.constants import DEFAULT_TIMEOUT
-from pyopnsense.diagnostics import DiagnosticNamespace
-from pyopnsense.dhcpv4 import Dhcpv4Namespace
+from pyopnsense.diagnostic_namespace import DiagnosticNamespace
+from pyopnsense.dhcpv4_namespace import Dhcpv4Namespace
 import validators
 from urllib.parse import urlparse
 
@@ -93,15 +93,13 @@ class OPNsenseAPI(object):
             raise ValueError(f"Error parsing the API key file: {e}")
 
     @property
-    def diagnostic(self):
-        """Access the diagnostic namespace."""
+    def diagnostic(self) -> DiagnosticNamespace:
         if "diagnostic" not in self._namespaces:
             self._namespaces["diagnostic"] = DiagnosticNamespace(self)
         return self._namespaces["diagnostic"]
-    
+
     @property
-    def dhcpv4(self):
-        """Access the dhcpv4 namespace."""
+    def dhcpv4(self) -> Dhcpv4Namespace:
         if "dhcpv4" not in self._namespaces:
             self._namespaces["dhcpv4"] = Dhcpv4Namespace(self)
         return self._namespaces["dhcpv4"]
