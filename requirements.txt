@@ -4,3 +4,4 @@
 
 pbr>=1.6 # Apache-2.0
 requests>=2.14.2 # Apache-2.0
+validators>=0.34

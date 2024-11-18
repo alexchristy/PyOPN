@@ -18,7 +18,7 @@
 from pyopnsense import client
 
 
-class FirewallClient(client.OPNClient):
+class FilterClient(client.OPNClient):
     """A client for interacting with the firewall endpoint.
 
     :param str api_key: The API key to use for requests

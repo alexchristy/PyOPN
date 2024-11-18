@@ -18,6 +18,27 @@
 import urllib
 
 from pyopnsense import client
+from pyopnsense.base_namespace import BaseNamespace
+
+
+class DiagnosticNamespace(BaseNamespace):
+    """Namespace for diagnostic-related API clients."""
+
+    @property
+    def interface(self):
+        return self._initialize_client("interface", InterfaceClient)
+
+    @property
+    def netflow(self):
+        return self._initialize_client("netflow", NetFlowClient)
+
+    @property
+    def network_insight(self):
+        return self._initialize_client("network_insight", NetworkInsightClient)
+
+    @property
+    def system_health(self):
+        return self._initialize_client("system_health", SystemHealthClient)
 
 
 class NetFlowClient(client.OPNClient):

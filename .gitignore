@@ -53,3 +53,9 @@ ChangeLog
 *~
 .*.swp
 .*sw?
+
+# Virtual environment
+venv/
+
+# OPNsense API keys
+*apikey.txt
