@@ -2,8 +2,8 @@ from pathlib import Path
 import logging
 from typing import Optional, Union
 from pyopnsense.constants import DEFAULT_TIMEOUT
-from pyopnsense.diagnostic_namespace import DiagnosticNamespace
-from pyopnsense.dhcpv4_namespace import Dhcpv4Namespace
+from pyopnsense.core.diagnostic_namespace import DiagnosticNamespace
+from pyopnsense.core.dhcpv4_namespace import Dhcpv4Namespace
 import validators
 from urllib.parse import urlparse
 
