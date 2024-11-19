@@ -2,7 +2,7 @@ from typing import Optional
 from pyopnsense.base_namespace import BaseNamespace
 
 # Import client classes
-from pyopnsense.diagnostics import InterfaceClient, NetFlowClient, NetworkInsightClient, SystemHealthClient
+from pyopnsense.core.diagnostics import InterfaceClient, NetFlowClient, NetworkInsightClient, SystemHealthClient
 
 
 class DiagnosticNamespace(BaseNamespace):
