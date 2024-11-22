@@ -68,3 +68,59 @@ class OPNClient(object):
             timeout=self.timeout,
         )
         return self._process_response(response, raw)
+    
+    def _post_file(self, endpoint: str, file_path: str, raw=False):
+        """Upload a file to the specified endpoint as JSON payload.
+
+        :param endpoint: API endpoint to send the request to.
+        :param file_path: Path to the file to be uploaded.
+        :param raw: Return raw text response if True.
+        :return: API response
+        """
+        req_url = f"{self.base_url}/{endpoint}"
+
+        # Read the file content
+        with open(file_path, 'r') as f:
+            csv_content = f.read()
+
+        # Prepare the JSON payload
+        payload = {
+            "payload": csv_content,
+            "filename": file_path.split('/')[-1]
+        }
+
+        response = requests.post(
+            req_url,
+            json=payload,  # Send as JSON
+            verify=self.verify_cert,
+            auth=(self.api_key, self.api_secret),
+            timeout=self.timeout,
+        )
+        return self._process_response(response, raw)
+
+
+    def _post_csv_data(self, endpoint: str, csv_data: str, raw=False):
+        """Upload raw CSV data to the specified endpoint as JSON payload.
+
+        :param endpoint: API endpoint to send the request to.
+        :param csv_data: Raw CSV data as a string.
+        :param raw: Return raw text response if True.
+        :return: API response
+        """
+        req_url = f"{self.base_url}/{endpoint}"
+
+        # Prepare the JSON payload
+        payload = {
+            "payload": csv_data,
+            "filename": "data.csv"  # Default filename for the uploaded data
+        }
+
+        # Send the request
+        response = requests.post(
+            req_url,
+            json=payload,  # Send as JSON
+            verify=self.verify_cert,
+            auth=(self.api_key, self.api_secret),
+            timeout=self.timeout,
+        )
+        return self._process_response(response, raw)
