@@ -75,3 +75,92 @@ class TestOPNClient(base.TestCase):
         request_mock.assert_called_once_with(
             "/fake_url", json={}, auth=("", ""), timeout=5, verify=False
         )
+
+    # Test for _post_file method
+    @mock.patch("requests.post")
+    def test_post_file_success(self, request_mock):
+        response_mock = mock.MagicMock()
+        response_mock.status_code = 200
+        response_mock.text = json.dumps({"status": "success"})
+        request_mock.return_value = response_mock
+
+        # Create client instance
+        opnclient = client.OPNClient("", "", "")
+
+        # Mock open to simulate file content
+        with mock.patch("builtins.open", mock.mock_open(read_data="file content")):
+            resp = opnclient._post_file("fake_url", "path/to/file.csv")
+            self.assertEqual({"status": "success"}, resp)
+
+        # Check that the correct arguments were passed to requests.post
+        request_mock.assert_called_once_with(
+            "/fake_url",
+            json={"payload": "file content", "filename": "file.csv"},
+            auth=("", ""),
+            timeout=5,
+            verify=False,
+        )
+
+    @mock.patch("requests.post")
+    def test_post_file_failure(self, request_mock):
+        response_mock = mock.MagicMock()
+        response_mock.status_code = 400
+        response_mock.text = json.dumps({"error": "bad request"})
+        request_mock.return_value = response_mock
+
+        opnclient = client.OPNClient("", "", "")
+
+        with mock.patch("builtins.open", mock.mock_open(read_data="file content")):
+            self.assertRaises(
+                exceptions.APIException, opnclient._post_file, "fake_url", "path/to/file.csv"
+            )
+
+        request_mock.assert_called_once_with(
+            "/fake_url",
+            json={"payload": "file content", "filename": "file.csv"},
+            auth=("", ""),
+            timeout=5,
+            verify=False,
+        )
+
+    # Test for _post_csv_data method
+    @mock.patch("requests.post")
+    def test_post_csv_data_success(self, request_mock):
+        response_mock = mock.MagicMock()
+        response_mock.status_code = 200
+        response_mock.text = json.dumps({"status": "success"})
+        request_mock.return_value = response_mock
+
+        opnclient = client.OPNClient("", "", "")
+        csv_data = "id,name\n1,John Doe\n2,Jane Doe"
+        resp = opnclient._post_csv_data("fake_url", csv_data)
+        self.assertEqual({"status": "success"}, resp)
+
+        request_mock.assert_called_once_with(
+            "/fake_url",
+            json={"payload": csv_data, "filename": "data.csv"},
+            auth=("", ""),
+            timeout=5,
+            verify=False,
+        )
+
+    @mock.patch("requests.post")
+    def test_post_csv_data_failure(self, request_mock):
+        response_mock = mock.MagicMock()
+        response_mock.status_code = 500
+        response_mock.text = json.dumps({"error": "internal server error"})
+        request_mock.return_value = response_mock
+
+        opnclient = client.OPNClient("", "", "")
+        csv_data = "id,name\n1,John Doe\n2,Jane Doe"
+        self.assertRaises(
+            exceptions.APIException, opnclient._post_csv_data, "fake_url", csv_data
+        )
+
+        request_mock.assert_called_once_with(
+            "/fake_url",
+            json={"payload": csv_data, "filename": "data.csv"},
+            auth=("", ""),
+            timeout=5,
+            verify=False,
+        )
