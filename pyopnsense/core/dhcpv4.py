@@ -55,10 +55,10 @@ class LeasesClient(client.OPNClient):
     :param str base_url: The base API endpoint for the OPNsense deployment
     """
 
-    def delLease(self, ip: str):
+    def del_lease(self, ip: str):
         if not ip_address.ipv4(ip):
             raise ValidationError(f"Failed to delete DHCP IP lease. Invalid IP provided: {ip}")
         return self._post(f"dhcpv4/leases/delLease/{ip}", "")
     
-    def searchLease(self):
+    def search_lease(self):
         return self._get("dhcpv4/leases/searchLease")

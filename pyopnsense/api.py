@@ -4,6 +4,7 @@ from typing import Optional, Union
 from pyopnsense.constants import DEFAULT_TIMEOUT
 from pyopnsense.core.diagnostic_namespace import DiagnosticNamespace
 from pyopnsense.core.dhcpv4_namespace import Dhcpv4Namespace
+from pyopnsense.core.kea_namespace import KeaNamespace
 import validators
 from urllib.parse import urlparse
 
@@ -103,3 +104,9 @@ class OPNsenseAPI(object):
         if "dhcpv4" not in self._namespaces:
             self._namespaces["dhcpv4"] = Dhcpv4Namespace(self)
         return self._namespaces["dhcpv4"]
+    
+    @property
+    def kea(self) -> KeaNamespace:
+        if "kea" not in self._namespaces:
+            self._namespaces["kea"] = KeaNamespace(self)
+        return self._namespaces["kea"]
