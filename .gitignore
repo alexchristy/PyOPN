@@ -62,3 +62,6 @@ venv/
 
 # Ignore test file
 main.py
+
+# Vscode
+.vscode/
