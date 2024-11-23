@@ -16,7 +16,7 @@
 # along with pyopnsense. If not, see <http://www.gnu.org/licenses/>.
 
 from validators import ip_address, ValidationError
-from pyopnsense import client
+from pyopn import client
 
 class ServiceClient(client.OPNClient):
     """A client for interacting with the dhcpv4/service endpoint.

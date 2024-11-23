@@ -1,10 +1,10 @@
 from pathlib import Path
 import logging
 from typing import Optional, Union
-from pyopnsense.constants import DEFAULT_TIMEOUT
-from pyopnsense.core.diagnostic_namespace import DiagnosticNamespace
-from pyopnsense.core.dhcpv4_namespace import Dhcpv4Namespace
-from pyopnsense.core.kea_namespace import KeaNamespace
+from pyopn.constants import DEFAULT_TIMEOUT
+from pyopn.core.diagnostic_namespace import DiagnosticNamespace
+from pyopn.core.dhcpv4_namespace import Dhcpv4Namespace
+from pyopn.core.kea_namespace import KeaNamespace
 import validators
 from urllib.parse import urlparse
 

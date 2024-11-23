@@ -1,8 +1,8 @@
 from typing import Optional
-from pyopnsense.base_namespace import BaseNamespace
+from pyopn.base_namespace import BaseNamespace
 
 # Import the client class
-from pyopnsense.core.kea import (
+from pyopn.core.kea import (
     CtrlAgentClient,
     Dhcpv4Client,
     Leases4Client,

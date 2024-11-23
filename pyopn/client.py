@@ -20,9 +20,9 @@ import json
 
 import requests
 
-from pyopnsense import exceptions
+from pyopn import exceptions
 from requests.packages import urllib3
-from pyopnsense.constants import DEFAULT_TIMEOUT, HTTP_SUCCESS
+from pyopn.constants import DEFAULT_TIMEOUT, HTTP_SUCCESS
 
 class OPNClient(object):
     """Representation of the OPNsense API client."""

@@ -1,4 +1,4 @@
-# Copyright 2021 Michel Vouillarmet, Matthew Treinish
+# Copyright 2018 Matthew Treinish
 #
 # This file is part of pyopnsense
 #
@@ -15,13 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with pyopnsense. If not, see <http://www.gnu.org/licenses/>.
 
-from pyopnsense import client
+from pyopn import client
 
 
-class BackupClient(client.OPNClient):
-    """A client for interacting with the backup endpoint. To use it, make
-    sure the os-api-backup plugin is installed.
-
+class GatewayClient(client.OPNClient):
+    """A client for interacting with the routes/gateway endpoint.
 
     :param str api_key: The API key to use for requests
     :param str api_secret: The API secret to use for requests
@@ -29,10 +27,10 @@ class BackupClient(client.OPNClient):
     :param int timeout: The timeout in seconds for API requests
     """
 
-    def download(self):
-        """Downloads the configuration file.
+    def status(self):
+        """Return the current gateways status.
 
-        :returns: Returns the OPNsense configuration as XML string.
-        :rtype: str
+        :returns: A dict representing the current status of gateways
+        :rtype: dict
         """
-        return self._get("backup/backup/download", True)
+        return self._get("routes/gateway/status")

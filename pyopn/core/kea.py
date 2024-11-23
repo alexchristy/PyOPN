@@ -16,7 +16,7 @@
 # along with pyopnsense. If not, see <http://www.gnu.org/licenses/>.
 
 from typing import Any
-from pyopnsense import client
+from pyopn import client
 
 class CtrlAgentClient(client.OPNClient):
     """A client for interacting with the kea/ctrl_agent endpoints.

@@ -1,8 +1,8 @@
 from typing import Optional
-from pyopnsense.base_namespace import BaseNamespace
+from pyopn.base_namespace import BaseNamespace
 
 # Import the client class
-from pyopnsense.core.dhcpv4 import ServiceClient, LeasesClient
+from pyopn.core.dhcpv4 import ServiceClient, LeasesClient
 
 
 class Dhcpv4Namespace(BaseNamespace):

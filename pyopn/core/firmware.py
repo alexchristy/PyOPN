@@ -17,7 +17,7 @@
 
 import json
 
-from pyopnsense import client
+from pyopn import client
 
 
 class FirmwareClient(client.OPNClient):

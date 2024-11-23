@@ -17,7 +17,7 @@
 
 import urllib
 
-from pyopnsense import client
+from pyopn import client
 
 class NetFlowClient(client.OPNClient):
     """A client for interacting with the diagnostics/netflow endpoint.

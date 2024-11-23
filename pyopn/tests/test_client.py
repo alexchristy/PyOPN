@@ -20,9 +20,9 @@ import json
 
 from unittest import mock
 
-from pyopnsense import client
-from pyopnsense import exceptions
-from pyopnsense.tests import base
+from pyopn import client
+from pyopn import exceptions
+from pyopn.tests import base
 
 
 class TestOPNClient(base.TestCase):
