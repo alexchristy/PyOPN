@@ -304,8 +304,6 @@ class Dhcpv4Client(client.OPNClient):
         This function uses the `KeaDhcpv4.xml` data model. For details, see:
         https://github.com/opnsense/core/blob/master/src/opnsense/mvc/app/models/OPNsense/Kea/KeaDhcpv4.xml    
 
-                :param str uuid: The UUID of the subnet to set the configuration for.
-        
         :param str uuid: The UUID of the reservation to set the configuration for.
         :param dict data: Python dictionary to be used for the body of the request.
 
