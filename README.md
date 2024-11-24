@@ -68,7 +68,7 @@ Below is a checklist of core OPNsense API modules. Checked off modules are compl
 
 ## Contributing
 
-Feel free to contribute to the library if there is are endpoints you need that are missing. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines and a quick tutorial on how to add new endpoints.
+Feel free to contribute to the library if there are missing endpoints you need. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines and a quick tutorial on how to add new endpoints.
 
 ## License
 
