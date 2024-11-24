@@ -1,6 +1,8 @@
 # Contributing
 
-Pull requests, bug reports, and all other forms of contribution are welcomed and highly encouraged! :octocat:
+Pull requests, bug reports, and all other forms of contribution are welcomed and highly encouraged! :octocat: 
+
+***Note:** Make sure to make a PR against this repository and not the originally forked repository*
 
 ## Project Stucture
 
