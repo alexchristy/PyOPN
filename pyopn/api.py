@@ -2,7 +2,6 @@ from pathlib import Path
 import logging
 from typing import Optional, Union
 from pyopn.constants import DEFAULT_TIMEOUT
-from pyopn.core.diagnostic_namespace import DiagnosticNamespace
 from pyopn.core.dhcpv4_namespace import Dhcpv4Namespace
 from pyopn.core.kea_namespace import KeaNamespace
 import validators
@@ -92,12 +91,6 @@ class OPNsenseAPI(object):
         except Exception as e:
             logger.error(f"Error reading API credentials from file: {file_path}: {e}")
             raise ValueError(f"Error parsing the API key file: {e}")
-
-    @property
-    def diagnostic(self) -> DiagnosticNamespace:
-        if "diagnostic" not in self._namespaces:
-            self._namespaces["diagnostic"] = DiagnosticNamespace(self)
-        return self._namespaces["diagnostic"]
 
     @property
     def dhcpv4(self) -> Dhcpv4Namespace:
