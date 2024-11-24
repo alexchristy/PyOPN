@@ -32,7 +32,7 @@ print(opn.kea.dhcpv4.search_reservation())
 
 The endpoints are organized as `opn.module.controller.command(param1, param2, data)`. Anytime camel case is used in the endpoint names, this wrapper uses snake case. 
 
-Parameters are passed in as arguments and are positioned in the order of they appear in the [OPNsense API reference](https://docs.opnsense.org/development/api.html). If an endppint accepts a JSON payload, the function will have a `data` arguement in the last position where you can pass in a Python dictionary.
+Parameters are passed in as arguments and are positioned in the order of they appear in the [OPNsense API reference](https://docs.opnsense.org/development/api.html). If an endpoint accepts a JSON payload, the function will have a `data` arguement in the last position where you can pass in a Python dictionary.
 
 **Ex:** `kea/dhcpv4/setSubnet` --> `opn.kea.dhcpv4.set_subnet(uuid, data)` ([Kea API Reference](https://docs.opnsense.org/development/api/core/kea.html))
 
