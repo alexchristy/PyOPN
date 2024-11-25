@@ -3,7 +3,7 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Auto Release](https://img.shields.io/badge/release-auto.svg?colorA=888888&colorB=9B065A&label=auto)](https://github.com/intuit/auto)
-[![CI/CD](https://github.com/alexchristy/PyOPN/actions/workflows/ci_cd.yml/badge.svg)](https://github.com/alexchristy/PyOPN/actions)
+[![CI](https://github.com/alexchristy/PyOPN/actions/workflows/ci.yml/badge.svg)](https://github.com/alexchristy/PyOPN/actions)
 [![PyPI version](https://badge.fury.io/py/pyopn.svg)](https://badge.fury.io/py/pyopn)
 
 A simple Python wrapper for the OPNsense REST API.
