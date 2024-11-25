@@ -68,4 +68,4 @@ main.py
 .env
 
 # Auto-generated during builds
-/src/hatch/_version.py
+src/pyopn/_version.py
