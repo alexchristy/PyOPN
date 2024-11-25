@@ -17,17 +17,18 @@
 
 
 import json
-
 from unittest import mock
 
-from pyopn import client
-from pyopn import exceptions
+from pyopn import client, exceptions
 from pyopn.tests import base
 
 
 class TestOPNClient(base.TestCase):
+    """Clas for testning the OPNClient class methods."""
+
     @mock.patch("requests.get")
-    def test_get_success(self, request_mock):
+    def test_get_success(self, request_mock: mock.MagicMock) -> None:
+        """Test a successful GET request."""
         response_mock = mock.MagicMock()
         response_mock.status_code = 200
         response_mock.text = json.dumps({"a": "body"})
@@ -40,19 +41,21 @@ class TestOPNClient(base.TestCase):
         )
 
     @mock.patch("requests.get")
-    def test_get_failures(self, request_mock):
+    def test_get_failures(self, request_mock: mock.MagicMock) -> None:
+        """Test a failed GET request."""
         response_mock = mock.MagicMock()
         response_mock.status_code = 401
         response_mock.text = json.dumps({"a": "body"})
         request_mock.return_value = response_mock
         opnclient = client.OPNClient("", "", "")
-        self.assertRaises(exceptions.APIException, opnclient._get, "fake_url")
+        self.assertRaises(exceptions.APIError, opnclient._get, "fake_url")
         request_mock.assert_called_once_with(
             "/fake_url", auth=("", ""), timeout=5, verify=False
         )
 
     @mock.patch("requests.post")
-    def test_post_success(self, request_mock):
+    def test_post_success(self, request_mock: mock.MagicMock) -> None:
+        """Test a successful POST request with a body."""
         response_mock = mock.MagicMock()
         response_mock.status_code = 200
         response_mock.text = json.dumps({"a": "body"})
@@ -65,20 +68,22 @@ class TestOPNClient(base.TestCase):
         )
 
     @mock.patch("requests.post")
-    def test_post_failures(self, request_mock):
+    def test_post_failures(self, request_mock: mock.MagicMock) -> None:
+        """Test a failed POST request with a body."""
         response_mock = mock.MagicMock()
         response_mock.status_code = 401
         response_mock.text = json.dumps({"a": "body"})
         request_mock.return_value = response_mock
         opnclient = client.OPNClient("", "", "")
-        self.assertRaises(exceptions.APIException, opnclient._post, "fake_url", {})
+        self.assertRaises(exceptions.APIError, opnclient._post, "fake_url", {})
         request_mock.assert_called_once_with(
             "/fake_url", json={}, auth=("", ""), timeout=5, verify=False
         )
 
     # Test for _post_file method
     @mock.patch("requests.post")
-    def test_post_file_success(self, request_mock):
+    def test_post_file_success(self, request_mock: mock.MagicMock) -> None:
+        """Test a successful file POST request."""
         response_mock = mock.MagicMock()
         response_mock.status_code = 200
         response_mock.text = json.dumps({"status": "success"})
@@ -102,7 +107,8 @@ class TestOPNClient(base.TestCase):
         )
 
     @mock.patch("requests.post")
-    def test_post_file_failure(self, request_mock):
+    def test_post_file_failure(self, request_mock: mock.MagicMock) -> None:
+        """Test a failed file POST request."""
         response_mock = mock.MagicMock()
         response_mock.status_code = 400
         response_mock.text = json.dumps({"error": "bad request"})
@@ -112,7 +118,10 @@ class TestOPNClient(base.TestCase):
 
         with mock.patch("builtins.open", mock.mock_open(read_data="file content")):
             self.assertRaises(
-                exceptions.APIException, opnclient._post_file, "fake_url", "path/to/file.csv"
+                exceptions.APIError,
+                opnclient._post_file,
+                "fake_url",
+                "path/to/file.csv",
             )
 
         request_mock.assert_called_once_with(
@@ -125,7 +134,8 @@ class TestOPNClient(base.TestCase):
 
     # Test for _post_csv_data method
     @mock.patch("requests.post")
-    def test_post_csv_data_success(self, request_mock):
+    def test_post_csv_data_success(self, request_mock: mock.MagicMock) -> None:
+        """Test a successful CSV data POST request."""
         response_mock = mock.MagicMock()
         response_mock.status_code = 200
         response_mock.text = json.dumps({"status": "success"})
@@ -145,7 +155,8 @@ class TestOPNClient(base.TestCase):
         )
 
     @mock.patch("requests.post")
-    def test_post_csv_data_failure(self, request_mock):
+    def test_post_csv_data_failure(self, request_mock: mock.MagicMock) -> None:
+        """Test a failed CSV data POST request."""
         response_mock = mock.MagicMock()
         response_mock.status_code = 500
         response_mock.text = json.dumps({"error": "internal server error"})
@@ -154,7 +165,7 @@ class TestOPNClient(base.TestCase):
         opnclient = client.OPNClient("", "", "")
         csv_data = "id,name\n1,John Doe\n2,Jane Doe"
         self.assertRaises(
-            exceptions.APIException, opnclient._post_csv_data, "fake_url", csv_data
+            exceptions.APIError, opnclient._post_csv_data, "fake_url", csv_data
         )
 
         request_mock.assert_called_once_with(

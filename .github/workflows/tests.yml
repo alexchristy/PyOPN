@@ -1,0 +1,46 @@
+name: Tests
+
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        required: true
+        type: string
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python-version }}
+
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r test-requirements.txt
+
+      # Run Ruff linter and formatter
+      - name: Run Ruff
+        run: |
+          ruff check --fix .
+          ruff format .
+
+      # Run Black formatter
+      - name: Run Black
+        run: |
+          black .
+
+      # Run Tests
+      - name: Run Tests
+        run: |
+          pytest

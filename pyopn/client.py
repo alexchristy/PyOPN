@@ -17,38 +17,63 @@
 
 
 import json
+from typing import Any, Union
 
 import requests
+from requests.packages import urllib3
 
 from pyopn import exceptions
-from requests.packages import urllib3
 from pyopn.constants import DEFAULT_TIMEOUT, HTTP_SUCCESS
+
 
 class OPNClient(object):
     """Representation of the OPNsense API client."""
 
     def __init__(
-        self, api_key, api_secret, base_url, verify_cert=False, timeout=DEFAULT_TIMEOUT
-    ):
+        self,
+        api_key: str,
+        api_secret: str,
+        base_url: str,
+        verify_cert: bool = False,
+        timeout: int = DEFAULT_TIMEOUT,
+    ) -> None:
         """Initialize the OPNsense API client."""
         self.api_key = api_key
         self.api_secret = api_secret
         self.base_url = base_url
         self.verify_cert = verify_cert
-        if self.verify_cert == False:
-          urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+        if not self.verify_cert:
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
         self.timeout = timeout
 
-    def _process_response(self, response, raw=False):
-        """Handle the response."""
+    def _process_response(
+        self, response: requests.Response, raw: bool = False
+    ) -> Union[str, dict[str, Any]]:
+        """Return data from response objects.
+
+        :param Response response: Response object to process.
+        :param bool raw: If True, return the raw text response as a string.
+                    If False, return the JSON response parsed as a dictionary.
+
+        :return: A string containing the raw text response if `raw` is `True`. A dictionary of the JSON response if `raw` is `False`.
+        :rtype: Union[str, dict[str, Any]]
+        """
         if response.status_code in HTTP_SUCCESS:
             return response.text if raw else json.loads(response.text)
-        else:
-            raise exceptions.APIException(
-                status_code=response.status_code, resp_body=response.text
-            )
+        raise exceptions.APIError(
+            status_code=response.status_code, resp_body=response.text
+        )
 
-    def _get(self, endpoint, raw=False):
+    def _get(self, endpoint: str, raw: bool = False) -> Union[str, dict[str, Any]]:
+        """Send GET request to the specified endpoint.
+
+        :param str endpoint: API endpoint to send the request to.
+        :param bool raw: If True, return the raw text response as a string.
+                    If False, return the JSON response parsed as a dictionary.
+
+        :return: A string containing the raw text response if `raw` is `True`. A dictionary of the JSON response if `raw` is `False`.
+        :rtype: Union[str, dict[str, Any]]
+        """
         req_url = "{}/{}".format(self.base_url, endpoint)
         response = requests.get(
             req_url,
@@ -58,7 +83,19 @@ class OPNClient(object):
         )
         return self._process_response(response, raw)
 
-    def _post(self, endpoint, data, raw=False):
+    def _post(
+        self, endpoint: str, data: dict[str, Any], raw: bool = False
+    ) -> Union[dict[str, Any]]:
+        """Send POST request to the specified endpoint with a JSON payload.
+
+        :param str endpoint: API endpoint to send the request to.
+        :param dict[str, Any] data: Dictionary to send as JSON body.
+        :param bool raw: If True, return the raw text response as a string.
+                    If False, return the JSON response parsed as a dictionary.
+
+        :return: A string containing the raw text response if `raw` is `True`. A dictionary of the JSON response if `raw` is `False`.
+        :rtype: Union[str, dict[str, Any]]
+        """
         req_url = "{}/{}".format(self.base_url, endpoint)
         response = requests.post(
             req_url,
@@ -68,26 +105,28 @@ class OPNClient(object):
             timeout=self.timeout,
         )
         return self._process_response(response, raw)
-    
-    def _post_file(self, endpoint: str, file_path: str, raw=False):
+
+    def _post_file(
+        self, endpoint: str, file_path: str, raw: bool = False
+    ) -> Union[str, dict[str, Any]]:
         """Upload a file to the specified endpoint as JSON payload.
 
-        :param endpoint: API endpoint to send the request to.
-        :param file_path: Path to the file to be uploaded.
-        :param raw: Return raw text response if True.
-        :return: API response
+        :param str endpoint: API endpoint to send the request to.
+        :param str file_path: Path of file to upload.
+        :param bool raw: If True, return the raw text response as a string.
+                    If False, return the JSON response parsed as a dictionary.
+
+        :return: A string containing the raw text response if `raw` is `True`. A dictionary of the JSON response if `raw` is `False`.
+        :rtype: Union[str, dict[str, Any]]
         """
         req_url = f"{self.base_url}/{endpoint}"
 
         # Read the file content
-        with open(file_path, 'r') as f:
-            csv_content = f.read()
+        with open(file_path, "r") as f:
+            file_content = f.read()
 
         # Prepare the JSON payload
-        payload = {
-            "payload": csv_content,
-            "filename": file_path.split('/')[-1]
-        }
+        payload = {"payload": file_content, "filename": file_path.split("/")[-1]}
 
         response = requests.post(
             req_url,
@@ -98,21 +137,25 @@ class OPNClient(object):
         )
         return self._process_response(response, raw)
 
+    def _post_csv_data(
+        self, endpoint: str, csv_data: str, raw: bool = False
+    ) -> Union[str, dict[str, Any]]:
+        """Upload CSV data to the specified endpoint as JSON payload.
 
-    def _post_csv_data(self, endpoint: str, csv_data: str, raw=False):
-        """Upload raw CSV data to the specified endpoint as JSON payload.
+        :param str endpoint: API endpoint to send the request to.
+        :param str csv_data: CSV data as a string.
+        :param bool raw: If True, return the raw text response as a string.
+                    If False, return the JSON response parsed as a dictionary.
 
-        :param endpoint: API endpoint to send the request to.
-        :param csv_data: Raw CSV data as a string.
-        :param raw: Return raw text response if True.
-        :return: API response
+        :return: A string containing the raw text response if `raw` is `True`. A dictionary of the JSON response if `raw` is `False`.
+        :rtype: Union[str, dict[str, Any]]
         """
         req_url = f"{self.base_url}/{endpoint}"
 
         # Prepare the JSON payload
         payload = {
             "payload": csv_data,
-            "filename": "data.csv"  # Default filename for the uploaded data
+            "filename": "data.csv",  # Default filename for the uploaded data
         }
 
         # Send the request

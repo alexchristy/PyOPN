@@ -1,8 +1,9 @@
 from typing import Optional
+
 from pyopn.base_namespace import BaseNamespace
 
 # Import the client class
-from pyopn.core.dhcpv4 import ServiceClient, LeasesClient
+from pyopn.core.dhcpv4 import LeasesClient, ServiceClient
 
 
 class Dhcpv4Namespace(BaseNamespace):
@@ -14,12 +15,14 @@ class Dhcpv4Namespace(BaseNamespace):
 
     @property
     def service(self) -> ServiceClient:
+        """Access the ISC DHCPv4 service controller."""
         if not self._service:
             self._service = self._initialize_client("service", ServiceClient)
         return self._service
 
     @property
     def leases(self) -> LeasesClient:
+        """Access the ISC DHCPv4 leases controller."""
         if not self._leases:
             self._leases = self._initialize_client("leases", LeasesClient)
         return self._leases

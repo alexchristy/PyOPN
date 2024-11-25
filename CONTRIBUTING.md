@@ -4,6 +4,40 @@ Pull requests, bug reports, and all other forms of contribution are welcomed and
 
 ***Note:** Make sure to make a PR against this repository and not the originally forked repository*
 
+## Enviroment Setup
+
+1) Download repo
+
+    ```bash
+    git clone https://github.com/alexchristy/PyOPN
+    ```
+
+2) Enter repo
+
+    ```bash
+    cd pyopn
+    ```
+
+3) Create virtual enviroment
+
+    ```bash
+    python3 -m venv venv
+
+    # Activate virtual environment
+    source venv/bin/activate
+    ```
+
+4) Install dependencies
+
+    ```bash
+    pip install -r requirements.txt
+    pip install -r test-requirements.txt
+    ```
+
+5) All done!
+
+    * See the sections below on how to add new endpoints to the library.
+
 ## Project Stucture
 
 ```txt
@@ -29,6 +63,16 @@ PyOPN
 Since this API is a very basic wrapper of the API, one of the main functions of this library is to extend the official API documentation. This is mainly done through the docstrings of the functions that implmenent the API endpoints.
 
 The majority of the contributed code in this project should be the docstrings as the core request functionality is already implemented.
+
+### Precommit Hooks
+
+This project uses the [Black](https://github.com/psf/black) formatting tool and the [Ruff](https://github.com/astral-sh/ruff) linter. Ensure that your code passes the following:
+- `ruff check --fix` - Runs linting rules.
+- `ruff format` - Runs linter formatting rules.
+- `black .` - Formats code to black standards (Run from root of repository).
+- `pytest` - Run all tests.
+
+These are configured in the `.pre-commit-config.yaml` and commits will fail unless all commands pass.
 
 ### Docstring Format
 

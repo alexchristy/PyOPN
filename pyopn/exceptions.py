@@ -16,12 +16,21 @@
 # along with pyopnsense. If not, see <http://www.gnu.org/licenses/>.
 
 
-class APIException(Exception):
+from typing import Any, Optional, Union
+
+
+class APIError(Exception):
     """Representation of the API exception."""
 
-    def __init__(self, status_code=None, resp_body=None, *args, **kwargs):
+    def __init__(
+        self,
+        status_code: Optional[int] = None,
+        resp_body: Optional[Union[str, dict[str, Any]]] = None,
+        *args: dict[str, Any],
+        **kwargs: dict[str, Any],
+    ) -> None:
         """Initialize the API exception."""
         self.resp_body = resp_body
         self.status_code = status_code
         message = kwargs.get("message", resp_body)
-        super(APIException, self).__init__(message, *args, **kwargs)
+        super(APIError, self).__init__(message, *args, **kwargs)
