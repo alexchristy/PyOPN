@@ -1,3 +1,15 @@
+# v0.1.1 (Mon Nov 25 2024)
+
+#### ⚠️ Pushed to `main`
+
+- Add CI badge to README ([@alexchristy](https://github.com/alexchristy))
+
+#### Authors: 1
+
+- Alex Christy ([@alexchristy](https://github.com/alexchristy))
+
+---
+
 # v0.1.0 (Mon Nov 25 2024)
 
 #### 🚀 Enhancement
