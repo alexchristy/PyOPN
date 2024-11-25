@@ -1,3 +1,15 @@
+# v0.1.9 (Mon Nov 25 2024)
+
+#### ⚠️ Pushed to `main`
+
+- Update publish.yml ([@alexchristy](https://github.com/alexchristy))
+
+#### Authors: 1
+
+- Alex Christy ([@alexchristy](https://github.com/alexchristy))
+
+---
+
 # v0.1.8 (Mon Nov 25 2024)
 
 #### ⚠️ Pushed to `main`
