@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with pyopn. If not, see <http://www.gnu.org/licenses/>.
 
-from typing import Any
+from typing import Any, Optional
 
 from pyopn import client
 
@@ -85,7 +85,7 @@ class Dhcpv4Client(client.OPNClient):
         """
         return self._get("kea/dhcpv4/get")
 
-    def set(self, data: dict[str, Any] = {}) -> dict[str, Any]:
+    def set(self, data: Optional[dict[str, Any]] = None) -> dict[str, Any]:
         """Set configuration for the Kea DHCPv4 server.
 
         :param dict data: Python dictionary to be used for the body of the request.
@@ -117,10 +117,12 @@ class Dhcpv4Client(client.OPNClient):
         :rtype: dict[str, Any]
 
         """
+        if not data:
+            data = {}
         return self._post("kea/dhcpv4/set", data)
 
     def add_subnet(self, data: dict[str, Any]) -> dict[str, Any]:
-        """Add subnet to the Kea DHCPv4 server.
+        r"""Add subnet to the Kea DHCPv4 server.
 
         **Note:** Make sure to POST to the `kea/dhcpv4/set` and then `kea/service/reconfigure` endpoints after this
         to enable changes.
@@ -193,7 +195,7 @@ class Dhcpv4Client(client.OPNClient):
         return self._get("kea/dhcpv4/searchSubnet")
 
     def set_subnet(self, uuid: str, data: dict[str, Any]) -> dict[str, Any]:
-        """Set subnet configuration on the Kea DHCPv4 server.
+        r"""Set subnet configuration on the Kea DHCPv4 server.
 
         **Note:** Make sure to POST to the `kea/dhcpv4/set` and then `kea/service/reconfigure` endpoints after this
         to apply changes.
@@ -336,7 +338,7 @@ class Dhcpv4Client(client.OPNClient):
         return self._post(f"kea/dhcpv4/setReservation/{uuid}", data)
 
     def upload_reservations(
-        self, file_path: str = None, data: str = None
+        self, file_path: Optional[str] = None, data: Optional[str] = None
     ) -> dict[str, Any]:
         """Upload a CSV of DHCP reservations to the Kea DHCPv4 server.
 
@@ -358,14 +360,17 @@ class Dhcpv4Client(client.OPNClient):
         :raises ValueError: If both or neither of `file_path` and `data` are provided.
         """
         if file_path and data:
-            raise ValueError("Provide either `file_path` or `data`, but not both.")
+            msg = "Provide either `file_path` or `data`, but not both."
+            raise ValueError(msg)
         if not file_path and not data:
-            raise ValueError("You must provide either `file_path` or `data`.")
+            msg = "You must provide either `file_path` or `data`."
+            raise ValueError(msg)
 
         if file_path:
             return self._post_file("kea/dhcpv4/uploadReservations", file_path)
         if data:
             return self._post_csv_data("kea/dhcpv4/uploadReservations", data)
+        return {"error": "No file path or data provided."}
 
     def search_peer(self) -> dict[str, Any]:
         """Get the configured peers for the Kea DHCPv4 server.
