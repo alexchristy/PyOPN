@@ -1,3 +1,20 @@
+# v0.1.0 (Mon Nov 25 2024)
+
+#### 🚀 Enhancement
+
+- Added Dev Tools and Workflows [#3](https://github.com/alexchristy/PyOPN/pull/3) ([@alexchristy](https://github.com/alexchristy))
+
+#### ⚠️ Pushed to `main`
+
+- Add .autorc back ([@alexchristy](https://github.com/alexchristy))
+- Make release.yml callable ([@alexchristy](https://github.com/alexchristy))
+
+#### Authors: 1
+
+- Alex Christy ([@alexchristy](https://github.com/alexchristy))
+
+---
+
 # v0.0.2 (Mon Nov 25 2024)
 
 #### ⚠️ Pushed to `main`
