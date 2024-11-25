@@ -7,7 +7,7 @@ target-version = ['py310']
 # Unlike Flake8, Ruff doesn't enable pycodestyle warnings (`W`) or
 # McCabe complexity (`C901`) by default.
 lint.select = ["E", "F", "I", "N", "D", "W", "ANN", "S", "B", "A", "C4", "DTZ", "EM", "ISC", "G", "Q", "RET", "SIM", "TD", "FIX", "PL", "RUF", "LOG"]
-lint.ignore = ["E501", "D100", "TD003", "PLR0912", "PLR0915", "D203", "D213"]
+lint.ignore = ["E501", "D100", "TD003", "PLR0912", "PLR0915", "D203", "D213", "ISC001"]
 
 # Allow fix for all enabled rules (when `--fix`) is provided.
 lint.fixable = ["ALL"]
@@ -41,9 +41,23 @@ lint.per-file-ignores = {}
 
 # Same as Black.
 line-length = 88
+indent-width = 4
 
 # Allow unused variables when underscore-prefixed.
 lint.dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
 # Assume Python 3.10
 target-version = "py310"
+
+[format]
+# Like Black, use double quotes for strings.
+quote-style = "double"
+
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
