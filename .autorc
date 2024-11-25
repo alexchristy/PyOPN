@@ -1,0 +1,9 @@
+{
+  "plugins": [
+    "git-tag"
+  ],
+  "owner": "alexchristy",
+  "repo": "PyOPN",
+  "name": "Alex Christy",
+  "email": "a.christy@ufl.edu"
+}

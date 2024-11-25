@@ -66,6 +66,3 @@ main.py
 # Vscode
 .vscode/
 .env
-
-# Auto
-.autorc
