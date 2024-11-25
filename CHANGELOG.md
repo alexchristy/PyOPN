@@ -1,3 +1,15 @@
+# v0.1.3 (Mon Nov 25 2024)
+
+#### 🐛 Bug Fix
+
+- Pypi pub [#4](https://github.com/alexchristy/PyOPN/pull/4) ([@alexchristy](https://github.com/alexchristy))
+
+#### Authors: 1
+
+- Alex Christy ([@alexchristy](https://github.com/alexchristy))
+
+---
+
 # v0.1.2 (Mon Nov 25 2024)
 
 #### ⚠️ Pushed to `main`
