@@ -12,7 +12,3 @@ jobs:
   release:
     needs: tests # Only release if passing tests
     uses: ./.github/workflows/release.yml
-
-  publish:
-    needs: release
-    uses: ./.github/workflows/publish.yml
