@@ -1,3 +1,15 @@
+# v0.1.5 (Mon Nov 25 2024)
+
+#### ⚠️ Pushed to `main`
+
+- Fix _version.py ignore ([@alexchristy](https://github.com/alexchristy))
+
+#### Authors: 1
+
+- Alex Christy ([@alexchristy](https://github.com/alexchristy))
+
+---
+
 # v0.1.4 (Mon Nov 25 2024)
 
 #### ⚠️ Pushed to `main`
