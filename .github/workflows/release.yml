@@ -17,28 +17,18 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Prepare repository
+      - name: Fetch tags
         run: git fetch --unshallow --tags
 
-      - name: Use Node.js 18.x
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18.x'
-
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: yarn-deps-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            yarn-deps-${{ hashFiles('yarn.lock') }}
+      - name: Install Auto
+        run: |
+          npm install -g auto
 
       - name: Create Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          yarn install --frozen-lockfile
-          yarn build
-          npx auto shipit -vv
+          npx auto shipit --verbose
