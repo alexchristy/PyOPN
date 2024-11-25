@@ -1,3 +1,15 @@
+# v0.1.2 (Mon Nov 25 2024)
+
+#### ⚠️ Pushed to `main`
+
+- Link to actions in README CI badge ([@alexchristy](https://github.com/alexchristy))
+
+#### Authors: 1
+
+- Alex Christy ([@alexchristy](https://github.com/alexchristy))
+
+---
+
 # v0.1.1 (Mon Nov 25 2024)
 
 #### ⚠️ Pushed to `main`
