@@ -20,7 +20,10 @@ import testtools
 
 
 class TestCase(testtools.TestCase):
-    def setUp(self):
+    """Test case setup class."""
+
+    def setUp(self) -> None:
+        """Set up a test case."""
         super(TestCase, self).setUp()
         stdout = self.useFixture(fixtures.StringStream("stdout")).stream
         self.useFixture(fixtures.MonkeyPatch("sys.stdout", stdout))

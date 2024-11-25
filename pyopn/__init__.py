@@ -1,5 +1,6 @@
-from .api import OPNsenseAPI
-from .client import OPNClient
-from .exceptions import APIException
+"""A simple Python wrapper for the OPNsense REST API."""
 
-__all__ = ["APIException", "OPNsenseAPI"]
+from .api import OPNsenseAPI
+from .exceptions import APIError
+
+__all__ = ["APIError", "OPNsenseAPI"]
