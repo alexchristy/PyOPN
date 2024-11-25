@@ -1,3 +1,15 @@
+# v0.1.4 (Mon Nov 25 2024)
+
+#### ⚠️ Pushed to `main`
+
+- Remove _version.py from git ([@alexchristy](https://github.com/alexchristy))
+
+#### Authors: 1
+
+- Alex Christy ([@alexchristy](https://github.com/alexchristy))
+
+---
+
 # v0.1.3 (Mon Nov 25 2024)
 
 #### 🐛 Bug Fix
