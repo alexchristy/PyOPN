@@ -20,10 +20,6 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      # Verify the version
-      - name: Verify version
-        run: hatch version
-
       # Set up Python
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -36,6 +32,10 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
           pip install -r test-requirements.txt
+          
+      # Verify the version
+      - name: Verify version
+        run: hatch version
 
       # Build packages
       - name: Build package distributions
