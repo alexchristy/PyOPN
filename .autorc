@@ -1,8 +1,6 @@
 {
   "plugins": [
-    "git-tag",
-    "all-contributors",
-    "released"
+    "git-tag"
   ],
   "owner": "alexchristy",
   "repo": "PyOPN",
