@@ -36,8 +36,6 @@ exclude = [
     "dist",
     "node_modules",
     "venv",
-    "tests/sns-event-messages/*",
-    "tests/textract-responses/*",
     ]
 per-file-ignores = {}
 
