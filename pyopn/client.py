@@ -24,6 +24,7 @@ from pyopn import exceptions
 from requests.packages import urllib3
 from pyopn.constants import DEFAULT_TIMEOUT, HTTP_SUCCESS
 
+
 class OPNClient(object):
     """Representation of the OPNsense API client."""
 
@@ -36,7 +37,7 @@ class OPNClient(object):
         self.base_url = base_url
         self.verify_cert = verify_cert
         if self.verify_cert == False:
-          urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
         self.timeout = timeout
 
     def _process_response(self, response, raw=False):
@@ -68,7 +69,7 @@ class OPNClient(object):
             timeout=self.timeout,
         )
         return self._process_response(response, raw)
-    
+
     def _post_file(self, endpoint: str, file_path: str, raw=False):
         """Upload a file to the specified endpoint as JSON payload.
 
@@ -80,14 +81,11 @@ class OPNClient(object):
         req_url = f"{self.base_url}/{endpoint}"
 
         # Read the file content
-        with open(file_path, 'r') as f:
+        with open(file_path, "r") as f:
             csv_content = f.read()
 
         # Prepare the JSON payload
-        payload = {
-            "payload": csv_content,
-            "filename": file_path.split('/')[-1]
-        }
+        payload = {"payload": csv_content, "filename": file_path.split("/")[-1]}
 
         response = requests.post(
             req_url,
@@ -97,7 +95,6 @@ class OPNClient(object):
             timeout=self.timeout,
         )
         return self._process_response(response, raw)
-
 
     def _post_csv_data(self, endpoint: str, csv_data: str, raw=False):
         """Upload raw CSV data to the specified endpoint as JSON payload.
@@ -112,7 +109,7 @@ class OPNClient(object):
         # Prepare the JSON payload
         payload = {
             "payload": csv_data,
-            "filename": "data.csv"  # Default filename for the uploaded data
+            "filename": "data.csv",  # Default filename for the uploaded data
         }
 
         # Send the request

@@ -112,7 +112,10 @@ class TestOPNClient(base.TestCase):
 
         with mock.patch("builtins.open", mock.mock_open(read_data="file content")):
             self.assertRaises(
-                exceptions.APIException, opnclient._post_file, "fake_url", "path/to/file.csv"
+                exceptions.APIException,
+                opnclient._post_file,
+                "fake_url",
+                "path/to/file.csv",
             )
 
         request_mock.assert_called_once_with(

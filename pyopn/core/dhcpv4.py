@@ -18,6 +18,7 @@
 from validators import ip_address, ValidationError
 from pyopn import client
 
+
 class ServiceClient(client.OPNClient):
     """A client for interacting with the dhcpv4/service endpoint.
 
@@ -28,7 +29,9 @@ class ServiceClient(client.OPNClient):
 
     def reconfigure(self, data):
         """Reconfigure the Dhcpv4 service."""
-        raise NotImplementedError("This ISC DHCPv4 endpoint is non-functional see Kea DHCP.")
+        raise NotImplementedError(
+            "This ISC DHCPv4 endpoint is non-functional see Kea DHCP."
+        )
         return self._post("dhcpv4/service/reconfigure", data)
 
     def restart(self):
@@ -42,11 +45,12 @@ class ServiceClient(client.OPNClient):
     def status(self):
         """Return the status of the ISC Dhcvpv4 service."""
         return self._get("dhcpv4/service/status")
-    
+
     def stop(self):
         """Stop the ISC Dhcpv4 service."""
         return self._post("dhcpv4/service/stop", "")
-    
+
+
 class LeasesClient(client.OPNClient):
     """A client for interacting with the dhcpv4/leases endpoint.
 
@@ -57,8 +61,10 @@ class LeasesClient(client.OPNClient):
 
     def del_lease(self, ip: str):
         if not ip_address.ipv4(ip):
-            raise ValidationError(f"Failed to delete DHCP IP lease. Invalid IP provided: {ip}")
+            raise ValidationError(
+                f"Failed to delete DHCP IP lease. Invalid IP provided: {ip}"
+            )
         return self._post(f"dhcpv4/leases/delLease/{ip}", "")
-    
+
     def search_lease(self):
         return self._get("dhcpv4/leases/searchLease")

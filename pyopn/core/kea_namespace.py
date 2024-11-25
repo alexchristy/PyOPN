@@ -2,12 +2,8 @@ from typing import Optional
 from pyopn.base_namespace import BaseNamespace
 
 # Import the client class
-from pyopn.core.kea import (
-    CtrlAgentClient,
-    Dhcpv4Client,
-    Leases4Client,
-    ServiceClient
-)
+from pyopn.core.kea import CtrlAgentClient, Dhcpv4Client, Leases4Client, ServiceClient
+
 
 class KeaNamespace(BaseNamespace):
     """Namespace for Kea related API clients."""
@@ -23,13 +19,13 @@ class KeaNamespace(BaseNamespace):
         if not self._ctrl_agent:
             self._ctrl_agent = self._initialize_client("ctrl_agent", CtrlAgentClient)
         return self._ctrl_agent
-    
+
     @property
     def dhcpv4(self) -> Dhcpv4Client:
         if not self._dhcpv4:
             self._dhcpv4 = self._initialize_client("dhcpv4", Dhcpv4Client)
         return self._dhcpv4
-    
+
     @property
     def leases4(self) -> Leases4Client:
         if not self._leases4:

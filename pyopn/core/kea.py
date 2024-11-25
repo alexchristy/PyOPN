@@ -18,6 +18,7 @@
 from typing import Any
 from pyopn import client
 
+
 class CtrlAgentClient(client.OPNClient):
     """A client for interacting with the kea/ctrl_agent endpoints.
 
@@ -28,24 +29,24 @@ class CtrlAgentClient(client.OPNClient):
 
     def get(self) -> dict[str, Any]:
         """Get the Kea controller agent configuration.
-        
+
         :return: API response
         :rtype: dict[str, Any]
         """
         return self._get("kea/ctrl_agent/get")
-    
+
     def set(self, data: dict[str, Any]) -> dict[str, Any]:
         """Configure the Kea control agent.
 
-        **Note:** Make sure to POST to the `kea/service/reconfigure` endpoint after this 
+        **Note:** Make sure to POST to the `kea/service/reconfigure` endpoint after this
         to enable changes.
 
         This function uses the `KeaCtrlAgent.xml` data model. For details, see:
         https://github.com/opnsense/core/blob/master/src/opnsense/mvc/app/models/OPNsense/Kea/KeaCtrlAgent.xml
 
-        :param dict data: Python dictionary to be used for the body of the request. 
+        :param dict data: Python dictionary to be used for the body of the request.
             The dictionary should follow the `KeaCtrlAgent.xml` data model.
-                            
+
             Example:
             ```python
             # Enable Control Agent with default configuration
@@ -65,6 +66,7 @@ class CtrlAgentClient(client.OPNClient):
         """
         return self._post("kea/ctrl_agent/set", data)
 
+
 class Dhcpv4Client(client.OPNClient):
     """A client for interacting with the kea/dhcpv4 endpoints.
 
@@ -72,9 +74,10 @@ class Dhcpv4Client(client.OPNClient):
     :param str api_secret: The API secret to use for requests
     :param str base_url: The base API endpoint for the OPNsense deployment
     """
+
     def get(self) -> dict[str, Any]:
         """Get the Kea DHCPv4 server configuration.
-        
+
         :return: API response
         :rtype: dict[str, Any]
         """
@@ -85,7 +88,7 @@ class Dhcpv4Client(client.OPNClient):
 
         :param dict data: Python dictionary to be used for the body of the request.
 
-            **Note on applying settings:** By default the OPNsense GUI will post the below 
+            **Note on applying settings:** By default the OPNsense GUI will post the below
             data when you click the 'Apply' button after setting any DHCPv4 server settings.
             However, manually testing with an empty dictionary works for applying settings.
 
@@ -115,23 +118,23 @@ class Dhcpv4Client(client.OPNClient):
 
     def add_subnet(self, data: dict[str, Any]) -> dict[str, Any]:
         """Add subnet to the Kea DHCPv4 server.
-        
-        **Note:** Make sure to POST to the `kea/dhcpv4/set` and then `kea/service/reconfigure` endpoints after this 
+
+        **Note:** Make sure to POST to the `kea/dhcpv4/set` and then `kea/service/reconfigure` endpoints after this
         to enable changes.
 
         This function uses the `KeaDhcpv4.xml` data model. For details, see:
-        https://github.com/opnsense/core/blob/master/src/opnsense/mvc/app/models/OPNsense/Kea/KeaDhcpv4.xml      
-        
-        :param dict data: Python dictionary to be used for the body of the request. 
+        https://github.com/opnsense/core/blob/master/src/opnsense/mvc/app/models/OPNsense/Kea/KeaDhcpv4.xml
+
+        :param dict data: Python dictionary to be used for the body of the request.
             The dictionary should follow the `KeaDhcpv4.xml` data model.
 
             Example:
             ```python
             data = {
-                "subnet4": { 
-                    "subnet": "192.168.199.0/24", 
+                "subnet4": {
+                    "subnet": "192.168.199.0/24",
                     "description": "Full network subnet",
-                    "pools": "192.168.199.10 - 192.168.199.15\\n192.168.199.64/28", 
+                    "pools": "192.168.199.10 - 192.168.199.15\\n192.168.199.64/28",
                     "option_data_autocollect": "1",
                     "option_data": {
                         "routers": "",
@@ -156,12 +159,12 @@ class Dhcpv4Client(client.OPNClient):
 
     def del_subnet(self, uuid: str) -> dict[str, Any]:
         """Delete the subnet configuration on the Kea DHCPv4 server by UUID.
-        
-        **Note:** Make sure to POST to the `kea/service/reconfigure` endpoint after this 
+
+        **Note:** Make sure to POST to the `kea/service/reconfigure` endpoint after this
         to enable changes.
-        
+
         :param str uuid: The UUID of the subnet to delete.
-        
+
         :return: API response
         :rtype: dict[str, Any]
         """
@@ -169,7 +172,7 @@ class Dhcpv4Client(client.OPNClient):
 
     def get_subnet(self, uuid: str) -> dict[str, Any]:
         """Get the configuration of a subnet on the Kea DHCPv4 server.
-        
+
         :param str uuid: The UUID of the subnet to get the configuration for.
 
         :return: API response
@@ -179,32 +182,32 @@ class Dhcpv4Client(client.OPNClient):
 
     def search_subnet(self) -> dict[str, Any]:
         """Get the configured subnets for the Kea DHCPv4 server.
-        
+
         :return: API response
         :rtype: dict[str, Any]
         """
         return self._get("kea/dhcpv4/searchSubnet")
-    
+
     def set_subnet(self, uuid: str, data: dict[str, Any]) -> dict[str, Any]:
         """Set subnet configuration on the Kea DHCPv4 server.
-        
-        **Note:** Make sure to POST to the `kea/dhcpv4/set` and then `kea/service/reconfigure` endpoints after this 
+
+        **Note:** Make sure to POST to the `kea/dhcpv4/set` and then `kea/service/reconfigure` endpoints after this
         to apply changes.
 
         This function uses the `KeaDhcpv4.xml` data model. For details, see:
-        https://github.com/opnsense/core/blob/master/src/opnsense/mvc/app/models/OPNsense/Kea/KeaDhcpv4.xml      
-        
+        https://github.com/opnsense/core/blob/master/src/opnsense/mvc/app/models/OPNsense/Kea/KeaDhcpv4.xml
+
         :param str uuid: The UUID of the subnet to set the configuration for.
-        :param dict data: Python dictionary to be used for the body of the request. 
+        :param dict data: Python dictionary to be used for the body of the request.
             The dictionary should follow the `KeaDhcpv4.xml` data model.
 
             Example:
             ```python
             data = {
-                "subnet4": { 
-                    "subnet": "192.168.199.0/24", 
+                "subnet4": {
+                    "subnet": "192.168.199.0/24",
                     "description": "Full network subnet",
-                    "pools": "192.168.199.10 - 192.168.199.15\\n192.168.199.64/28", 
+                    "pools": "192.168.199.10 - 192.168.199.15\\n192.168.199.64/28",
                     "option_data_autocollect": "1",
                     "option_data": {
                         "routers": "",
@@ -226,7 +229,7 @@ class Dhcpv4Client(client.OPNClient):
         :rtype: dict[str, Any]
         """
         return self._post(f"kea/dhcpv4/setSubnet/{uuid}", data)
-    
+
     def search_reservation(self) -> dict[str, Any]:
         """Get the configured reservations on the Kea DHCPv4 server.
 
@@ -234,15 +237,15 @@ class Dhcpv4Client(client.OPNClient):
         :rtype: dict[str, Any]
         """
         return self._get("kea/dhcpv4/searchReservation")
-    
+
     def add_reservation(self, data: dict[str, Any]) -> dict[str, Any]:
         """Add reservation to the Kea DHCPv4 server.
 
-        **Note:** Make sure to POST to the `kea/dhcpv4/set` and then `kea/service/reconfigure` endpoints after this 
+        **Note:** Make sure to POST to the `kea/dhcpv4/set` and then `kea/service/reconfigure` endpoints after this
         to enable changes.
 
         This function uses the `KeaDhcpv4.xml` data model. For details, see:
-        https://github.com/opnsense/core/blob/master/src/opnsense/mvc/app/models/OPNsense/Kea/KeaDhcpv4.xml    
+        https://github.com/opnsense/core/blob/master/src/opnsense/mvc/app/models/OPNsense/Kea/KeaDhcpv4.xml
 
         :param dict data: Python dictionary to be used for the body of the request.
 
@@ -263,20 +266,20 @@ class Dhcpv4Client(client.OPNClient):
         :rtype: dict[str, Any]
         """
         return self._post("kea/dhcpv4/addReservation", data)
-    
+
     def del_reservation(self, uuid: str) -> dict[str, Any]:
         """Delete reservation but UUID on the Kea DHCPv4 server.
 
-        **Note:** Make sure to POST to the `kea/service/reconfigure` endpoint after this 
+        **Note:** Make sure to POST to the `kea/service/reconfigure` endpoint after this
         to enable changes.
-        
+
         :param str uuid: UUID of the DHCP reservation to delete.
-        
+
         :return: API response
         :rtype: dict[str, Any]
         """
         return self._post(f"kea/dhcpv4/delReservation/{uuid}", "")
-    
+
     def download_reservations(self) -> str:
         """Download CSV of reservations on the Kea DHCPv4 server.
 
@@ -284,7 +287,7 @@ class Dhcpv4Client(client.OPNClient):
         :rtype: str
         """
         return self._get("kea/dhcpv4/downloadReservations", raw=True)
-    
+
     def get_reservation(self, uuid: str) -> dict[str, Any]:
         """Get configuration of the reservation on Kea DHCPv4 server by UUID.
 
@@ -294,15 +297,15 @@ class Dhcpv4Client(client.OPNClient):
         :rtype: dict[str, Any]
         """
         return self._get(f"kea/dhcpv4/getReservation/{uuid}")
-    
+
     def set_reservation(self, uuid: str, data: dict[str, Any]) -> dict[str, Any]:
         """Set DHCP reservation configuration on the Kea DHCPv4 server.
-        
-        **Note:** Make sure to POST to the `kea/dhcpv4/set` and then `kea/service/reconfigure` endpoints after this 
+
+        **Note:** Make sure to POST to the `kea/dhcpv4/set` and then `kea/service/reconfigure` endpoints after this
         to enable changes.
 
         This function uses the `KeaDhcpv4.xml` data model. For details, see:
-        https://github.com/opnsense/core/blob/master/src/opnsense/mvc/app/models/OPNsense/Kea/KeaDhcpv4.xml    
+        https://github.com/opnsense/core/blob/master/src/opnsense/mvc/app/models/OPNsense/Kea/KeaDhcpv4.xml
 
         :param str uuid: The UUID of the reservation to set the configuration for.
         :param dict data: Python dictionary to be used for the body of the request.
@@ -324,11 +327,13 @@ class Dhcpv4Client(client.OPNClient):
         :rtype: dict[str, Any]
         """
         return self._post(f"kea/dhcpv4/setReservation/{uuid}", data)
-    
-    def upload_reservations(self, file_path: str = None, data: str = None) -> dict[str, Any]:
+
+    def upload_reservations(
+        self, file_path: str = None, data: str = None
+    ) -> dict[str, Any]:
         """Upload a CSV of DHCP reservations to the Kea DHCPv4 server.
 
-        **Note:** Make sure to POST to the `kea/dhcpv4/set` and then `kea/service/reconfigure` endpoints after this 
+        **Note:** Make sure to POST to the `kea/dhcpv4/set` and then `kea/service/reconfigure` endpoints after this
         to enable changes.
 
         :param file_path: Path to the CSV file to upload. Mutually exclusive with `data`.
@@ -362,7 +367,7 @@ class Dhcpv4Client(client.OPNClient):
         :rtype: dict[str, Any]
         """
         return self._get("kea/dhcpv4/searchPeer")
-    
+
     def get_peer(self, uuid: str) -> dict[str, Any]:
         """Get the configuration for a peer on the Kea DHCPv4 server by UUID.
 
@@ -372,11 +377,11 @@ class Dhcpv4Client(client.OPNClient):
         :rtype: dict[str, Any]
         """
         return self._get(f"kea/dhcpv4/getPeer/{uuid}")
-    
+
     def del_peer(self, uuid: str) -> dict[str, Any]:
         """Delete the peer on the Kea DHCPv4 server by UUID.
 
-        **Note:** Make sure to POST to the `kea/service/reconfigure` endpoint after this 
+        **Note:** Make sure to POST to the `kea/service/reconfigure` endpoint after this
         to enable changes.
 
         :param str uuid: The UUID of the peer to delete.
@@ -385,15 +390,15 @@ class Dhcpv4Client(client.OPNClient):
         :rtype: dict[str, Any]
         """
         return self._post(f"kea/dhcpv4/delPeer/{uuid}", "")
-    
+
     def add_peer(self, data: dict[str, Any]) -> dict[str, Any]:
         """Add peer to the Kea DHCPv4 server.
 
-        **Note:** Make sure to POST to the `kea/dhcpv4/set` and then `kea/service/reconfigure` endpoints after this 
+        **Note:** Make sure to POST to the `kea/dhcpv4/set` and then `kea/service/reconfigure` endpoints after this
         to enable changes.
 
         This function uses the `KeaDhcpv4.xml` data model. For details, see:
-        https://github.com/opnsense/core/blob/master/src/opnsense/mvc/app/models/OPNsense/Kea/KeaDhcpv4.xml    
+        https://github.com/opnsense/core/blob/master/src/opnsense/mvc/app/models/OPNsense/Kea/KeaDhcpv4.xml
 
         :param dict data: Python dictionary to be used for the body of the request.
 
@@ -412,15 +417,15 @@ class Dhcpv4Client(client.OPNClient):
         :rtype: dict[str, Any]
         """
         return self._post("kea/dhcpv4/addPeer", data)
-    
+
     def set_peer(self, uuid: str, data: dict[str, Any]) -> dict[str, Any]:
         """Set configuration of peer on the Kea DHCPv4 server by UUID.
 
-        **Note:** Make sure to POST to the `kea/dhcpv4/set` and then `kea/service/reconfigure` endpoints after this 
+        **Note:** Make sure to POST to the `kea/dhcpv4/set` and then `kea/service/reconfigure` endpoints after this
         to enable changes.
 
         This function uses the `KeaDhcpv4.xml` data model. For details, see:
-        https://github.com/opnsense/core/blob/master/src/opnsense/mvc/app/models/OPNsense/Kea/KeaDhcpv4.xml    
+        https://github.com/opnsense/core/blob/master/src/opnsense/mvc/app/models/OPNsense/Kea/KeaDhcpv4.xml
 
         :param str uuid: The UUID of the peer to set the configuration for.
         :param dict data: Python dictionary to be used for the body of the request.
@@ -441,6 +446,7 @@ class Dhcpv4Client(client.OPNClient):
         """
         return self._post(f"kea/dhcpv4/setPeer/{uuid}", data)
 
+
 class Leases4Client(client.OPNClient):
     """A client for interacting with the kea/leases4 endpoint.
 
@@ -448,6 +454,7 @@ class Leases4Client(client.OPNClient):
     :param str api_secret: The API secret to use for requests
     :param str base_url: The base API endpoint for the OPNsense deployment
     """
+
 
 class ServiceClient(client.OPNClient):
     """A client for interacting with the kea/service endpoint.
@@ -459,15 +466,15 @@ class ServiceClient(client.OPNClient):
 
     def reconfigure(self) -> dict[str, Any]:
         """Enable/Reconfigure the Kea DHCP service with the currently set configuration.
-        
+
         :return: API response
         :rtype: dict[str, Any]
         """
         return self._post("kea/service/reconfigure", "")
-    
+
     def status(self) -> dict[str, Any]:
         """Get the status of the Kea DHCP service.
-        
+
         :return: API response
         :rtype: dict[str, Any]
         """

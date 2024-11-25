@@ -11,11 +11,19 @@ from urllib.parse import urlparse
 # Create a module-level logger
 logger = logging.getLogger(__name__)
 
+
 class OPNsenseAPI(object):
     """Wrapper class to manage namespaces and API credentials."""
 
-    def __init__(self, base_url: str, api_key_file: Optional[Union[str, Path]] = None, api_key: Optional[str] = None, api_secret: Optional[str] = None, verify_cert: bool = False, timeout: int = DEFAULT_TIMEOUT):
-        
+    def __init__(
+        self,
+        base_url: str,
+        api_key_file: Optional[Union[str, Path]] = None,
+        api_key: Optional[str] = None,
+        api_secret: Optional[str] = None,
+        verify_cert: bool = False,
+        timeout: int = DEFAULT_TIMEOUT,
+    ):
         # Load credentials: Cred file, directly, or throw error
         if api_key_file:
             logger.info("Initializing OPNSenseAPI with API key file.")
@@ -25,16 +33,18 @@ class OPNsenseAPI(object):
             self.api_key = api_key
             self.api_secret = api_secret
         else:
-            logger.error("Initialization failed: Neither api_key_file nor both api_key and api_secret provided.")
+            logger.error(
+                "Initialization failed: Neither api_key_file nor both api_key and api_secret provided."
+            )
             raise ValueError(
                 "You must provide either an api_key_file path or both api_key and api_secret for initialization."
             )
-        
+
         if validators.url(base_url):
             self.base_url = self._format_base_url(base_url)
         else:
             raise ValueError(f"Provided OPNsense base URL is not valid: {base_url}")
-        
+
         self.verify_cert = verify_cert
         self.timeout = timeout
 
@@ -83,8 +93,12 @@ class OPNsenseAPI(object):
                         keys[key.strip()] = value.strip().strip('"')  # Remove quotes
 
             if "key" not in keys or "secret" not in keys:
-                logger.error(f"Invalid file format in {file_path}: Missing 'key' or 'secret'.")
-                raise ValueError("The file must contain both 'key' and 'secret' in the format key=\"value\".")
+                logger.error(
+                    f"Invalid file format in {file_path}: Missing 'key' or 'secret'."
+                )
+                raise ValueError(
+                    "The file must contain both 'key' and 'secret' in the format key=\"value\"."
+                )
 
             logger.info(f"API credentials successfully loaded from file: {file_path}")
             return keys["key"], keys["secret"]
@@ -97,7 +111,7 @@ class OPNsenseAPI(object):
         if "dhcpv4" not in self._namespaces:
             self._namespaces["dhcpv4"] = Dhcpv4Namespace(self)
         return self._namespaces["dhcpv4"]
-    
+
     @property
     def kea(self) -> KeaNamespace:
         if "kea" not in self._namespaces:
