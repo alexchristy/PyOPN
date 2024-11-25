@@ -8,8 +8,7 @@ on:
 jobs:
   tests:
     uses: ./.github/workflows/tests.yml
-    with:
-      python-version: '3.10'
 
   release:
+    needs: tests # Only release if passing tests
     uses: ./.github/workflows/release.yml
