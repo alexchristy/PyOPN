@@ -23,5 +23,5 @@ jobs:
 
       - name: Release with Auto
         env:
-          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx auto shipit
