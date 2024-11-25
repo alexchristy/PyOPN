@@ -1,0 +1,12 @@
+name: PR Tests
+
+on:
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  tests:
+    uses: ./.github/workflows/tests.yml
+    with:
+      python-version: '3.10'
