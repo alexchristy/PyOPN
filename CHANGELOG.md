@@ -1,3 +1,17 @@
+# v0.1.7 (Mon Nov 25 2024)
+
+#### ⚠️ Pushed to `main`
+
+- Update workflows to publish properly ([@alexchristy](https://github.com/alexchristy))
+- Rename github token value in release.yml ([@alexchristy](https://github.com/alexchristy))
+- Update workflows to use GitHub vars and secrets ([@alexchristy](https://github.com/alexchristy))
+
+#### Authors: 1
+
+- Alex Christy ([@alexchristy](https://github.com/alexchristy))
+
+---
+
 # v0.1.6 (Mon Nov 25 2024)
 
 #### ⚠️ Pushed to `main`
