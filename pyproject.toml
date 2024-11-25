@@ -61,3 +61,55 @@ skip-magic-trailing-comma = false
 
 # Like Black, automatically detect the appropriate line ending.
 line-ending = "auto"
+
+[build-system]
+requires = ["hatchling>=1.24.2", "hatch-vcs>=0.3.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+build-targets = ["sdist", "wheel"]
+
+[tool.hatch.version]
+source = "vcs"
+tag-pattern = "^v(?P<version>.+)$"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/pyopn/_version.py"
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    "/.github",
+]
+
+[project]
+name = "pyopn"
+authors = [
+  { name="Alex Christy", email="a.christy@ufl.edu" },
+]
+description = " A simple Python wrapper for the OPNsense REST API."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Networking",
+    "Topic :: System :: Systems Administration"
+]
+dependencies = [
+    "pbr>=1.6",
+    "requests>=2.14.2",
+    "validators>=0.34",
+]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/alexchristy/PyOPN"
