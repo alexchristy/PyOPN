@@ -65,3 +65,4 @@ main.py
 
 # Vscode
 .vscode/
+.env
