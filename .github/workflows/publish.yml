@@ -1,10 +1,9 @@
 name: Publish
 
-# Trigger on new tagged releases from auto
 on:
-  push:
-    tags:
-      - 'v*'
+  release:
+    types:
+      - published
 
 jobs:
   pypi-publish:
