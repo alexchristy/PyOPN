@@ -23,6 +23,6 @@ jobs:
 
       - name: Release with Auto
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-        run: npx auto shipit
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          npx auto shipit
