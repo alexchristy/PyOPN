@@ -66,3 +66,6 @@ main.py
 # Vscode
 .vscode/
 .env
+
+# Auto-generated during builds
+/src/hatch/_version.py
