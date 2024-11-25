@@ -1,4 +1,5 @@
 from typing import Optional
+
 from pyopn.base_namespace import BaseNamespace
 
 # Import the client class

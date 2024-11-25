@@ -1,3 +1,51 @@
 [tool.black]
 line-length = 88
 target-version = ['py310']
+
+[tool.ruff]
+# Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.
+# Unlike Flake8, Ruff doesn't enable pycodestyle warnings (`W`) or
+# McCabe complexity (`C901`) by default.
+select = ["E", "F", "I", "N", "D", "W", "ANN", "S", "B", "A", "C4", "DTZ", "EM", "ISC", "G", "Q", "RET", "SIM", "TD", "FIX", "PL", "RUF", "LOG"]
+ignore = ["E501", "D100", "TD003", "PLR0912", "PLR0915"]
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    "tests/sns-event-messages/*",
+    "tests/textract-responses/*",
+    ]
+per-file-ignores = {}
+
+# Same as Black.
+line-length = 88
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+# Assume Python 3.10
+target-version = "py310"

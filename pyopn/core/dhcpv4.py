@@ -15,7 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with pyopn. If not, see <http://www.gnu.org/licenses/>.
 
-from validators import ip_address, ValidationError
+from validators import ValidationError, ip_address
+
 from pyopn import client
 
 

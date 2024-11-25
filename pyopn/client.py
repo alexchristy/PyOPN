@@ -19,9 +19,9 @@
 import json
 
 import requests
+from requests.packages import urllib3
 
 from pyopn import exceptions
-from requests.packages import urllib3
 from pyopn.constants import DEFAULT_TIMEOUT, HTTP_SUCCESS
 
 
@@ -44,10 +44,9 @@ class OPNClient(object):
         """Handle the response."""
         if response.status_code in HTTP_SUCCESS:
             return response.text if raw else json.loads(response.text)
-        else:
-            raise exceptions.APIException(
-                status_code=response.status_code, resp_body=response.text
-            )
+        raise exceptions.APIException(
+            status_code=response.status_code, resp_body=response.text
+        )
 
     def _get(self, endpoint, raw=False):
         req_url = "{}/{}".format(self.base_url, endpoint)

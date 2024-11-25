@@ -16,6 +16,7 @@
 # along with pyopn. If not, see <http://www.gnu.org/licenses/>.
 
 from typing import Any
+
 from pyopn import client
 
 
@@ -47,7 +48,7 @@ class CtrlAgentClient(client.OPNClient):
         :param dict data: Python dictionary to be used for the body of the request.
             The dictionary should follow the `KeaCtrlAgent.xml` data model.
 
-            Example:
+        Example:
             ```python
             # Enable Control Agent with default configuration
             data = {
@@ -63,6 +64,7 @@ class CtrlAgentClient(client.OPNClient):
 
         :return: API response
         :rtype: dict[str, Any]
+
         """
         return self._post("kea/ctrl_agent/set", data)
 
@@ -92,7 +94,7 @@ class Dhcpv4Client(client.OPNClient):
             data when you click the 'Apply' button after setting any DHCPv4 server settings.
             However, manually testing with an empty dictionary works for applying settings.
 
-            Example:
+        Example:
             ```python
             data = {
                 "dhcpv4": {
@@ -113,6 +115,7 @@ class Dhcpv4Client(client.OPNClient):
 
         :return: API response
         :rtype: dict[str, Any]
+
         """
         return self._post("kea/dhcpv4/set", data)
 
@@ -128,7 +131,7 @@ class Dhcpv4Client(client.OPNClient):
         :param dict data: Python dictionary to be used for the body of the request.
             The dictionary should follow the `KeaDhcpv4.xml` data model.
 
-            Example:
+        Example:
             ```python
             data = {
                 "subnet4": {
@@ -154,6 +157,7 @@ class Dhcpv4Client(client.OPNClient):
 
         :return: API response
         :rtype: dict[str, Any]
+
         """
         return self._post("kea/dhcpv4/addSubnet", data)
 
@@ -201,7 +205,7 @@ class Dhcpv4Client(client.OPNClient):
         :param dict data: Python dictionary to be used for the body of the request.
             The dictionary should follow the `KeaDhcpv4.xml` data model.
 
-            Example:
+        Example:
             ```python
             data = {
                 "subnet4": {
@@ -227,6 +231,7 @@ class Dhcpv4Client(client.OPNClient):
 
         :return: API response
         :rtype: dict[str, Any]
+
         """
         return self._post(f"kea/dhcpv4/setSubnet/{uuid}", data)
 
@@ -249,7 +254,7 @@ class Dhcpv4Client(client.OPNClient):
 
         :param dict data: Python dictionary to be used for the body of the request.
 
-            Example:
+        Example:
             ```python
             data = {
                 "reservation": {
@@ -264,6 +269,7 @@ class Dhcpv4Client(client.OPNClient):
 
         :return: API response
         :rtype: dict[str, Any]
+
         """
         return self._post("kea/dhcpv4/addReservation", data)
 
@@ -310,7 +316,7 @@ class Dhcpv4Client(client.OPNClient):
         :param str uuid: The UUID of the reservation to set the configuration for.
         :param dict data: Python dictionary to be used for the body of the request.
 
-            Example:
+        Example:
             ```python
             data = {
                 "reservation": {
@@ -325,6 +331,7 @@ class Dhcpv4Client(client.OPNClient):
 
         :return: API response
         :rtype: dict[str, Any]
+
         """
         return self._post(f"kea/dhcpv4/setReservation/{uuid}", data)
 
@@ -402,7 +409,7 @@ class Dhcpv4Client(client.OPNClient):
 
         :param dict data: Python dictionary to be used for the body of the request.
 
-            Example:
+        Example:
             ```python
             data = {
                 "peer": {
@@ -415,6 +422,7 @@ class Dhcpv4Client(client.OPNClient):
 
         :return: API response
         :rtype: dict[str, Any]
+
         """
         return self._post("kea/dhcpv4/addPeer", data)
 
@@ -430,7 +438,7 @@ class Dhcpv4Client(client.OPNClient):
         :param str uuid: The UUID of the peer to set the configuration for.
         :param dict data: Python dictionary to be used for the body of the request.
 
-            Example:
+        Example:
             ```python
             data = {
                 "peer": {
@@ -443,6 +451,7 @@ class Dhcpv4Client(client.OPNClient):
 
         :return: API response
         :rtype: dict[str, Any]
+
         """
         return self._post(f"kea/dhcpv4/setPeer/{uuid}", data)
 

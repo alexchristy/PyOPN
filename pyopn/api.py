@@ -1,12 +1,13 @@
-from pathlib import Path
 import logging
+from pathlib import Path
 from typing import Optional, Union
+from urllib.parse import urlparse
+
+import validators
+
 from pyopn.constants import DEFAULT_TIMEOUT
 from pyopn.core.dhcpv4_namespace import Dhcpv4Namespace
 from pyopn.core.kea_namespace import KeaNamespace
-import validators
-from urllib.parse import urlparse
-
 
 # Create a module-level logger
 logger = logging.getLogger(__name__)
@@ -68,8 +69,7 @@ class OPNsenseAPI(object):
         self._namespaces.clear()
 
     def _load_keys_from_file(self, file_path: Union[str, Path]) -> tuple[str, str]:
-        """
-        Loads the API key and secret from a file.
+        """Loads the API key and secret from a file.
 
         :param str | Path file_path: Path to the file containing API credentials
         :returns: A tuple containing the API key and secret
@@ -77,7 +77,6 @@ class OPNsenseAPI(object):
         :raises FileNotFoundError: If the file does not exist
         :raises ValueError: If the file contents are invalid or malformed
         """
-
         path = Path(file_path)
         if not path.is_file():
             logger.error(f"File not found: {file_path}")

@@ -17,11 +17,9 @@
 
 
 import json
-
 from unittest import mock
 
-from pyopn import client
-from pyopn import exceptions
+from pyopn import client, exceptions
 from pyopn.tests import base
 
 
