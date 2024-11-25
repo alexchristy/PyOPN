@@ -16,6 +16,8 @@ jobs:
       # Checkout the code
       - name: Checkout code
         uses: actions/checkout@v4
+          with:
+            ref: main
 
       # Set up Python
       - name: Set up Python
