@@ -1,3 +1,15 @@
+# v0.0.2 (Mon Nov 25 2024)
+
+#### ⚠️ Pushed to `main`
+
+- Update auto configuration ([@alexchristy](https://github.com/alexchristy))
+
+#### Authors: 1
+
+- Alex Christy ([@alexchristy](https://github.com/alexchristy))
+
+---
+
 # v0.0.1 (Mon Nov 25 2024)
 
 #### 🐛 Bug Fix
