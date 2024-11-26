@@ -1,3 +1,15 @@
+# v0.1.26 (Tue Nov 26 2024)
+
+#### ⚠️ Pushed to `main`
+
+- Update test workflow badge ([@alexchristy](https://github.com/alexchristy))
+
+#### Authors: 1
+
+- Alex Christy ([@alexchristy](https://github.com/alexchristy))
+
+---
+
 # v0.1.25 (Tue Nov 26 2024)
 
 #### ⚠️ Pushed to `main`
