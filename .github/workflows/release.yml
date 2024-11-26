@@ -1,7 +1,9 @@
 name: Prod Release
 
 on:
-  workflow_call:
+  push:
+    branches:
+      - main
 
 jobs:
   release:
@@ -23,5 +25,5 @@ jobs:
 
       - name: Release with Auto
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         run: npx auto shipit

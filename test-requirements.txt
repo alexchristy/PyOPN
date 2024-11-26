@@ -13,4 +13,3 @@ pytest>=8.3.3
 pre-commit>=4.0.1
 build>=1.2.2
 hatch>=1.13.0
-twine>=5.1.1
