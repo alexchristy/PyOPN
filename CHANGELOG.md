@@ -1,3 +1,15 @@
+# v0.1.25 (Tue Nov 26 2024)
+
+#### ⚠️ Pushed to `main`
+
+- Break up workflows and prevent secrets from not passing ([@alexchristy](https://github.com/alexchristy))
+
+#### Authors: 1
+
+- Alex Christy ([@alexchristy](https://github.com/alexchristy))
+
+---
+
 # v0.1.24 (Tue Nov 26 2024)
 
 #### ⚠️ Pushed to `main`
