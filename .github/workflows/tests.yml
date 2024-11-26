@@ -28,7 +28,7 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
-          pip install -r test-requirements.txt
+          pip install -r dev-requirements.txt
 
       # Run Ruff linter and formatter
       - name: Run Ruff
@@ -44,7 +44,7 @@ jobs:
       # Run MyPy checks
       - name: Run MyPy
         run: |
-          mypy src/
+          mypy --install-types --non-interactive src/
 
       # Run Tests
       - name: Run Tests

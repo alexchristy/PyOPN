@@ -19,10 +19,10 @@ repos:
     rev: 'v1.13.0'
     hooks:
       - id: mypy
+        args: ["--install-types", "--non-interactive"]
         additional_dependencies: # requirements.txt + type stubs if available
           - pbr>=1.6
           - requests>=2.14.2
-          - types-requests
           - validators>=0.34
           - urllib3>=2.2.3
           
