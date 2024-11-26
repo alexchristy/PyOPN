@@ -1,3 +1,15 @@
+# v0.1.27 (Tue Nov 26 2024)
+
+#### 🐛 Bug Fix
+
+- Add Mypy [#5](https://github.com/alexchristy/PyOPN/pull/5) ([@alexchristy](https://github.com/alexchristy))
+
+#### Authors: 1
+
+- Alex Christy ([@alexchristy](https://github.com/alexchristy))
+
+---
+
 # v0.1.26 (Tue Nov 26 2024)
 
 #### ⚠️ Pushed to `main`
