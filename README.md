@@ -3,6 +3,7 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Auto Release](https://img.shields.io/badge/release-auto.svg?colorA=888888&colorB=9B065A&label=auto)](https://github.com/intuit/auto)
+[![Checked with mypy](https://www.mypy-lang.org/static/mypy_badge.svg)](https://mypy-lang.org/)
 [![tests](https://github.com/alexchristy/PyOPN/actions/workflows/tests.yml/badge.svg)](https://github.com/alexchristy/PyOPN/actions)
 [![PyPI version](https://badge.fury.io/py/pyopn.svg)](https://badge.fury.io/py/pyopn)
 

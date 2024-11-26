@@ -30,27 +30,45 @@ class ServiceClient(client.OPNClient):
     :param str base_url: The base API endpoint for the OPNsense deployment
     """
 
-    def reconfigure(self, data: dict[str, Any]) -> NotImplementedError:
-        """Reconfigure the Dhcpv4 service."""
-        msg = "This ISC DHCPv4 endpoint is non-functional see Kea DHCP."
-        raise NotImplementedError(msg)
-        return self._post("dhcpv4/service/reconfigure", data)
+    def reconfigure(self, data: dict[str, Any]) -> dict[str, Any]:
+        """Reconfigure the Dhcpv4 service.
+
+        :return: API response
+        :rtype: dict[str, Any]
+        """
+        return self._post("dhcpv4/service/reconfigure", data, raw=False)
 
     def restart(self) -> dict[str, Any]:
-        """Restart the ISC DHCPv4 service."""
-        return self._post("dhcpv4/service/restart", "")
+        """Restart the ISC DHCPv4 service.
+
+        :return: API response
+        :rtype: dict[str, Any]
+        """
+        return self._post("dhcpv4/service/restart", {}, raw=False)
 
     def start(self) -> dict[str, Any]:
-        """Start the ISC DHCPv4 service."""
-        return self._post("dhcpv4/service/restart", "")
+        """Start the ISC DHCPv4 service.
+
+        :return: API response
+        :rtype: dict[str, Any]
+        """
+        return self._post("dhcpv4/service/restart", {}, raw=False)
 
     def status(self) -> dict[str, Any]:
-        """Return the status of the ISC Dhcvpv4 service."""
-        return self._get("dhcpv4/service/status")
+        """Return the status of the ISC Dhcvpv4 service.
+
+        :return: API response
+        :rtype: dict[str, Any]
+        """
+        return self._get("dhcpv4/service/status", raw=False)
 
     def stop(self) -> dict[str, Any]:
-        """Stop the ISC Dhcpv4 service."""
-        return self._post("dhcpv4/service/stop", "")
+        """Stop the ISC Dhcpv4 service.
+
+        :return: API response
+        :rtype: dict[str, Any]
+        """
+        return self._post("dhcpv4/service/stop", {}, raw=False)
 
 
 class LeasesClient(client.OPNClient):
@@ -62,12 +80,20 @@ class LeasesClient(client.OPNClient):
     """
 
     def del_lease(self, ip: str) -> dict[str, Any]:
-        """Delete lease in ISC DHCPv4 server."""
+        """Delete lease in ISC DHCPv4 server.
+
+        :return: API response
+        :rtype: dict[str, Any]
+        """
         if not ip_address.ipv4(ip):
             msg = f"Failed to delete DHCP IP lease. Invalid IP provided: {ip}"
-            raise ValidationError(msg)
-        return self._post(f"dhcpv4/leases/delLease/{ip}", "")
+            raise ValidationError(self.del_lease, {"ip": ip}, msg)
+        return self._post(f"dhcpv4/leases/delLease/{ip}", {}, raw=False)
 
     def search_lease(self) -> dict[str, Any]:
-        """Return all leases in the ISC DHCPv4 server."""
-        return self._get("dhcpv4/leases/searchLease")
+        """Return all leases in the ISC DHCPv4 server.
+
+        :return: API response
+        :rtype: dict[str, Any]
+        """
+        return self._get("dhcpv4/leases/searchLease", raw=False)

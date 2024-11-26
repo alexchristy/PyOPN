@@ -120,7 +120,7 @@ def set_reservation(self, uuid: str, data: dict[str, Any]) -> dict[str, Any]:
     :return: API response
     :rtype: dict[str, Any]
     """
-    return self._post(f"kea/dhcpv4/setReservation/{uuid}", data)
+    return self._post(f"kea/dhcpv4/setReservation/{uuid}", data, raw=False)
 ```
 
 ## Adding a New Endpoint
@@ -155,7 +155,7 @@ def set_reservation(self, uuid: str, data: dict[str, Any]) -> dict[str, Any]:
                 :return: API response
                 :rtype: dict[str, Any]
                 """
-                return self._get("kea/ctrl_agent/get")
+                return self._get("kea/ctrl_agent/get", raw=False)
         ```
 4) In `module_name_namespace.py`:
     * Import all of the API controller classes from `module_name.py`
@@ -187,7 +187,7 @@ def set_reservation(self, uuid: str, data: dict[str, Any]) -> dict[str, Any]:
             def ctrl_agent(self) -> CtrlAgentClient:
                 if not self._ctrl_agent:
                     self._ctrl_agent = self._initialize_client("ctrl_agent", CtrlAgentClient)
-                return self._ctrl_agent
+                return cast(CtrlAgentClient, self._ctrl_agent)
             
         ```
 5) In `pyopn/api.py`:
@@ -204,5 +204,5 @@ def set_reservation(self, uuid: str, data: dict[str, Any]) -> dict[str, Any]:
             def kea(self) -> KeaNamespace:
                 if "kea" not in self._namespaces:
                     self._namespaces["kea"] = KeaNamespace(self)
-                return self._namespaces["kea"]
+                return cast(KeaNamespace, self._namespaces["kea"])
         ```

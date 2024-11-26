@@ -34,7 +34,7 @@ class CtrlAgentClient(client.OPNClient):
         :return: API response
         :rtype: dict[str, Any]
         """
-        return self._get("kea/ctrl_agent/get")
+        return self._get("kea/ctrl_agent/get", raw=False)
 
     def set(self, data: dict[str, Any]) -> dict[str, Any]:
         """Configure the Kea control agent.
@@ -66,7 +66,7 @@ class CtrlAgentClient(client.OPNClient):
         :rtype: dict[str, Any]
 
         """
-        return self._post("kea/ctrl_agent/set", data)
+        return self._post("kea/ctrl_agent/set", data, raw=False)
 
 
 class Dhcpv4Client(client.OPNClient):
@@ -83,7 +83,7 @@ class Dhcpv4Client(client.OPNClient):
         :return: API response
         :rtype: dict[str, Any]
         """
-        return self._get("kea/dhcpv4/get")
+        return self._get("kea/dhcpv4/get", raw=False)
 
     def set(self, data: Optional[dict[str, Any]] = None) -> dict[str, Any]:
         """Set configuration for the Kea DHCPv4 server.
@@ -119,7 +119,7 @@ class Dhcpv4Client(client.OPNClient):
         """
         if not data:
             data = {}
-        return self._post("kea/dhcpv4/set", data)
+        return self._post("kea/dhcpv4/set", data, raw=False)
 
     def add_subnet(self, data: dict[str, Any]) -> dict[str, Any]:
         r"""Add subnet to the Kea DHCPv4 server.
@@ -161,7 +161,7 @@ class Dhcpv4Client(client.OPNClient):
         :rtype: dict[str, Any]
 
         """
-        return self._post("kea/dhcpv4/addSubnet", data)
+        return self._post("kea/dhcpv4/addSubnet", data, raw=False)
 
     def del_subnet(self, uuid: str) -> dict[str, Any]:
         """Delete the subnet configuration on the Kea DHCPv4 server by UUID.
@@ -174,7 +174,7 @@ class Dhcpv4Client(client.OPNClient):
         :return: API response
         :rtype: dict[str, Any]
         """
-        return self._post(f"kea/dhcpv4/delSubnet/{uuid}", "")
+        return self._post(f"kea/dhcpv4/delSubnet/{uuid}", {}, raw=False)
 
     def get_subnet(self, uuid: str) -> dict[str, Any]:
         """Get the configuration of a subnet on the Kea DHCPv4 server.
@@ -184,7 +184,7 @@ class Dhcpv4Client(client.OPNClient):
         :return: API response
         :rtype: dict[str, Any]
         """
-        return self._get(f"kea/dhcpv4/getSubnet/{uuid}")
+        return self._get(f"kea/dhcpv4/getSubnet/{uuid}", raw=False)
 
     def search_subnet(self) -> dict[str, Any]:
         """Get the configured subnets for the Kea DHCPv4 server.
@@ -192,7 +192,7 @@ class Dhcpv4Client(client.OPNClient):
         :return: API response
         :rtype: dict[str, Any]
         """
-        return self._get("kea/dhcpv4/searchSubnet")
+        return self._get("kea/dhcpv4/searchSubnet", raw=False)
 
     def set_subnet(self, uuid: str, data: dict[str, Any]) -> dict[str, Any]:
         r"""Set subnet configuration on the Kea DHCPv4 server.
@@ -235,7 +235,7 @@ class Dhcpv4Client(client.OPNClient):
         :rtype: dict[str, Any]
 
         """
-        return self._post(f"kea/dhcpv4/setSubnet/{uuid}", data)
+        return self._post(f"kea/dhcpv4/setSubnet/{uuid}", data, raw=False)
 
     def search_reservation(self) -> dict[str, Any]:
         """Get the configured reservations on the Kea DHCPv4 server.
@@ -243,7 +243,7 @@ class Dhcpv4Client(client.OPNClient):
         :return: API response
         :rtype: dict[str, Any]
         """
-        return self._get("kea/dhcpv4/searchReservation")
+        return self._get("kea/dhcpv4/searchReservation", raw=False)
 
     def add_reservation(self, data: dict[str, Any]) -> dict[str, Any]:
         """Add reservation to the Kea DHCPv4 server.
@@ -273,7 +273,7 @@ class Dhcpv4Client(client.OPNClient):
         :rtype: dict[str, Any]
 
         """
-        return self._post("kea/dhcpv4/addReservation", data)
+        return self._post("kea/dhcpv4/addReservation", data, raw=False)
 
     def del_reservation(self, uuid: str) -> dict[str, Any]:
         """Delete reservation but UUID on the Kea DHCPv4 server.
@@ -286,7 +286,7 @@ class Dhcpv4Client(client.OPNClient):
         :return: API response
         :rtype: dict[str, Any]
         """
-        return self._post(f"kea/dhcpv4/delReservation/{uuid}", "")
+        return self._post(f"kea/dhcpv4/delReservation/{uuid}", {}, raw=False)
 
     def download_reservations(self) -> str:
         """Download CSV of reservations on the Kea DHCPv4 server.
@@ -304,7 +304,7 @@ class Dhcpv4Client(client.OPNClient):
         :return: API response
         :rtype: dict[str, Any]
         """
-        return self._get(f"kea/dhcpv4/getReservation/{uuid}")
+        return self._get(f"kea/dhcpv4/getReservation/{uuid}", raw=False)
 
     def set_reservation(self, uuid: str, data: dict[str, Any]) -> dict[str, Any]:
         """Set DHCP reservation configuration on the Kea DHCPv4 server.
@@ -335,7 +335,7 @@ class Dhcpv4Client(client.OPNClient):
         :rtype: dict[str, Any]
 
         """
-        return self._post(f"kea/dhcpv4/setReservation/{uuid}", data)
+        return self._post(f"kea/dhcpv4/setReservation/{uuid}", data, raw=False)
 
     def upload_reservations(
         self, file_path: Optional[str] = None, data: Optional[str] = None
@@ -367,9 +367,11 @@ class Dhcpv4Client(client.OPNClient):
             raise ValueError(msg)
 
         if file_path:
-            return self._post_file("kea/dhcpv4/uploadReservations", file_path)
+            return self._post_file(
+                "kea/dhcpv4/uploadReservations", file_path, raw=False
+            )
         if data:
-            return self._post_csv_data("kea/dhcpv4/uploadReservations", data)
+            return self._post_csv_data("kea/dhcpv4/uploadReservations", data, raw=False)
         return {"error": "No file path or data provided."}
 
     def search_peer(self) -> dict[str, Any]:
@@ -378,7 +380,7 @@ class Dhcpv4Client(client.OPNClient):
         :return: API response
         :rtype: dict[str, Any]
         """
-        return self._get("kea/dhcpv4/searchPeer")
+        return self._get("kea/dhcpv4/searchPeer", raw=False)
 
     def get_peer(self, uuid: str) -> dict[str, Any]:
         """Get the configuration for a peer on the Kea DHCPv4 server by UUID.
@@ -388,7 +390,7 @@ class Dhcpv4Client(client.OPNClient):
         :return: API response
         :rtype: dict[str, Any]
         """
-        return self._get(f"kea/dhcpv4/getPeer/{uuid}")
+        return self._get(f"kea/dhcpv4/getPeer/{uuid}", raw=False)
 
     def del_peer(self, uuid: str) -> dict[str, Any]:
         """Delete the peer on the Kea DHCPv4 server by UUID.
@@ -401,7 +403,7 @@ class Dhcpv4Client(client.OPNClient):
         :return: API response
         :rtype: dict[str, Any]
         """
-        return self._post(f"kea/dhcpv4/delPeer/{uuid}", "")
+        return self._post(f"kea/dhcpv4/delPeer/{uuid}", {}, raw=False)
 
     def add_peer(self, data: dict[str, Any]) -> dict[str, Any]:
         """Add peer to the Kea DHCPv4 server.
@@ -429,7 +431,7 @@ class Dhcpv4Client(client.OPNClient):
         :rtype: dict[str, Any]
 
         """
-        return self._post("kea/dhcpv4/addPeer", data)
+        return self._post("kea/dhcpv4/addPeer", data, raw=False)
 
     def set_peer(self, uuid: str, data: dict[str, Any]) -> dict[str, Any]:
         """Set configuration of peer on the Kea DHCPv4 server by UUID.
@@ -458,7 +460,7 @@ class Dhcpv4Client(client.OPNClient):
         :rtype: dict[str, Any]
 
         """
-        return self._post(f"kea/dhcpv4/setPeer/{uuid}", data)
+        return self._post(f"kea/dhcpv4/setPeer/{uuid}", data, raw=False)
 
 
 class Leases4Client(client.OPNClient):
@@ -468,6 +470,14 @@ class Leases4Client(client.OPNClient):
     :param str api_secret: The API secret to use for requests
     :param str base_url: The base API endpoint for the OPNsense deployment
     """
+
+    def search(self) -> dict[str, Any]:
+        """Get all active leases on the Kea DHCPv4 server.
+
+        :return: API response
+        :rtype: dict[str, Any]
+        """
+        return self._get("kea/leases4/search", raw=False)
 
 
 class ServiceClient(client.OPNClient):
@@ -484,7 +494,7 @@ class ServiceClient(client.OPNClient):
         :return: API response
         :rtype: dict[str, Any]
         """
-        return self._post("kea/service/reconfigure", "")
+        return self._post("kea/service/reconfigure", {}, raw=False)
 
     def status(self) -> dict[str, Any]:
         """Get the status of the Kea DHCP service.
@@ -492,4 +502,4 @@ class ServiceClient(client.OPNClient):
         :return: API response
         :rtype: dict[str, Any]
         """
-        return self._get("kea/service/status")
+        return self._get("kea/service/status", raw=False)

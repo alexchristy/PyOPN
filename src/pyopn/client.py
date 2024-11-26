@@ -17,10 +17,10 @@
 
 
 import json
-from typing import Any, Union
+from typing import Any, Literal, Union, overload
 
 import requests
-from requests.packages import urllib3
+import urllib3
 
 from pyopn import exceptions
 from pyopn.constants import DEFAULT_TIMEOUT, HTTP_SUCCESS
@@ -47,7 +47,7 @@ class OPNClient(object):
         self.timeout = timeout
 
     def _process_response(
-        self, response: requests.Response, raw: bool = False
+        self, response: requests.Response, raw: bool
     ) -> Union[str, dict[str, Any]]:
         """Return data from response objects.
 
@@ -59,12 +59,18 @@ class OPNClient(object):
         :rtype: Union[str, dict[str, Any]]
         """
         if response.status_code in HTTP_SUCCESS:
-            return response.text if raw else json.loads(response.text)
+            return str(response.text) if raw else json.loads(response.text)
         raise exceptions.APIError(
             status_code=response.status_code, resp_body=response.text
         )
 
-    def _get(self, endpoint: str, raw: bool = False) -> Union[str, dict[str, Any]]:
+    @overload
+    def _get(self, endpoint: str, raw: Literal[True]) -> str: ...
+
+    @overload
+    def _get(self, endpoint: str, raw: Literal[False]) -> dict[str, Any]: ...
+
+    def _get(self, endpoint: str, raw: bool) -> Union[str, dict[str, Any]]:
         """Send GET request to the specified endpoint.
 
         :param str endpoint: API endpoint to send the request to.
@@ -83,9 +89,17 @@ class OPNClient(object):
         )
         return self._process_response(response, raw)
 
+    @overload
+    def _post(self, endpoint: str, data: dict[str, Any], raw: Literal[True]) -> str: ...
+
+    @overload
     def _post(
-        self, endpoint: str, data: dict[str, Any], raw: bool = False
-    ) -> Union[dict[str, Any]]:
+        self, endpoint: str, data: dict[str, Any], raw: Literal[False]
+    ) -> dict[str, Any]: ...
+
+    def _post(
+        self, endpoint: str, data: dict[str, Any], raw: bool
+    ) -> Union[str, dict[str, Any]]:
         """Send POST request to the specified endpoint with a JSON payload.
 
         :param str endpoint: API endpoint to send the request to.
@@ -106,8 +120,16 @@ class OPNClient(object):
         )
         return self._process_response(response, raw)
 
+    @overload
+    def _post_file(self, endpoint: str, file_path: str, raw: Literal[True]) -> str: ...
+
+    @overload
     def _post_file(
-        self, endpoint: str, file_path: str, raw: bool = False
+        self, endpoint: str, file_path: str, raw: Literal[False]
+    ) -> dict[str, Any]: ...
+
+    def _post_file(
+        self, endpoint: str, file_path: str, raw: bool
     ) -> Union[str, dict[str, Any]]:
         """Upload a file to the specified endpoint as JSON payload.
 
@@ -137,8 +159,18 @@ class OPNClient(object):
         )
         return self._process_response(response, raw)
 
+    @overload
     def _post_csv_data(
-        self, endpoint: str, csv_data: str, raw: bool = False
+        self, endpoint: str, csv_data: str, raw: Literal[True]
+    ) -> str: ...
+
+    @overload
+    def _post_csv_data(
+        self, endpoint: str, csv_data: str, raw: Literal[False]
+    ) -> dict[str, Any]: ...
+
+    def _post_csv_data(
+        self, endpoint: str, csv_data: str, raw: bool
     ) -> Union[str, dict[str, Any]]:
         """Upload CSV data to the specified endpoint as JSON payload.
 

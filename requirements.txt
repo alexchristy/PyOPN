@@ -5,3 +5,4 @@
 pbr>=1.6
 requests>=2.14.2
 validators>=0.34
+urllib3>=2.2.3
