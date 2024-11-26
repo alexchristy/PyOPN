@@ -1,15 +1,12 @@
 name: Publish
 
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
 
 jobs:
   pypi-publish:
     name: Upload release to PyPI
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'Update CHANGELOG.md')"
     environment:
       name: pypi
       url: https://pypi.org/p/${{ vars.PACKAGE_NAME }}
