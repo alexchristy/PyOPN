@@ -41,6 +41,11 @@ jobs:
         run: |
           black .
 
+      # Run MyPy checks
+      - name: Run MyPy
+        run: |
+          mypy src/
+
       # Run Tests
       - name: Run Tests
         run: |
