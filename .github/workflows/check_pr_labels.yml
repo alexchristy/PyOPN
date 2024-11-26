@@ -24,4 +24,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           yarn install --frozen-lockfile
-          npx auto pr-check --url ${{ github.server_url }}/${{ github.repository }} --context auto/check-semver-label --pr ${{ github.event.pull_request.number }}
+          npx auto pr-check --url ${{ github.server_url }}/${{ github.repository }}/blob/mypy/CONTRIBUTING.md#no-semver-label --context auto/check-semver-label --pr ${{ github.event.pull_request.number }}

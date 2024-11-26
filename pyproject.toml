@@ -80,7 +80,7 @@ source = "vcs"
 tag-pattern = "^v(?P<version>.+)$"
 
 [tool.hatch.build.hooks.vcs]
-version-file = "pyopn/_version.py"
+version-file = "src/pyopn/_version.py"
 
 [tool.hatch.build.targets.sdist]
 exclude = [
