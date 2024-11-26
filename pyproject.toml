@@ -2,6 +2,12 @@
 line-length = 88
 target-version = ['py310']
 
+[tool.mypy]
+packages = ["pyopn"]
+python_version = "3.10"
+strict = true
+ignore_missing_imports = true
+
 [tool.ruff]
 # Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.
 # Unlike Flake8, Ruff doesn't enable pycodestyle warnings (`W`) or
@@ -74,7 +80,7 @@ source = "vcs"
 tag-pattern = "^v(?P<version>.+)$"
 
 [tool.hatch.build.hooks.vcs]
-version-file = "src/pyopn/_version.py"
+version-file = "pyopn/_version.py"
 
 [tool.hatch.build.targets.sdist]
 exclude = [

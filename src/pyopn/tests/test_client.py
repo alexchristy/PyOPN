@@ -34,7 +34,7 @@ class TestOPNClient(base.TestCase):
         response_mock.text = json.dumps({"a": "body"})
         request_mock.return_value = response_mock
         opnclient = client.OPNClient("", "", "", timeout=10)
-        resp = opnclient._get("fake_url")
+        resp = opnclient._get("fake_url", raw=False)
         self.assertEqual({"a": "body"}, resp)
         request_mock.assert_called_once_with(
             "/fake_url", auth=("", ""), timeout=10, verify=False
@@ -48,7 +48,7 @@ class TestOPNClient(base.TestCase):
         response_mock.text = json.dumps({"a": "body"})
         request_mock.return_value = response_mock
         opnclient = client.OPNClient("", "", "")
-        self.assertRaises(exceptions.APIError, opnclient._get, "fake_url")
+        self.assertRaises(exceptions.APIError, opnclient._get, "fake_url", raw=False)
         request_mock.assert_called_once_with(
             "/fake_url", auth=("", ""), timeout=5, verify=False
         )
@@ -61,7 +61,7 @@ class TestOPNClient(base.TestCase):
         response_mock.text = json.dumps({"a": "body"})
         request_mock.return_value = response_mock
         opnclient = client.OPNClient("", "", "")
-        resp = opnclient._post("fake_url", {})
+        resp = opnclient._post("fake_url", {}, raw=False)
         self.assertEqual({"a": "body"}, resp)
         request_mock.assert_called_once_with(
             "/fake_url", json={}, auth=("", ""), timeout=5, verify=False
@@ -75,7 +75,9 @@ class TestOPNClient(base.TestCase):
         response_mock.text = json.dumps({"a": "body"})
         request_mock.return_value = response_mock
         opnclient = client.OPNClient("", "", "")
-        self.assertRaises(exceptions.APIError, opnclient._post, "fake_url", {})
+        self.assertRaises(
+            exceptions.APIError, opnclient._post, "fake_url", {}, raw=False
+        )
         request_mock.assert_called_once_with(
             "/fake_url", json={}, auth=("", ""), timeout=5, verify=False
         )
@@ -94,7 +96,7 @@ class TestOPNClient(base.TestCase):
 
         # Mock open to simulate file content
         with mock.patch("builtins.open", mock.mock_open(read_data="file content")):
-            resp = opnclient._post_file("fake_url", "path/to/file.csv")
+            resp = opnclient._post_file("fake_url", "path/to/file.csv", raw=False)
             self.assertEqual({"status": "success"}, resp)
 
         # Check that the correct arguments were passed to requests.post
@@ -122,6 +124,7 @@ class TestOPNClient(base.TestCase):
                 opnclient._post_file,
                 "fake_url",
                 "path/to/file.csv",
+                raw=False,
             )
 
         request_mock.assert_called_once_with(
@@ -143,7 +146,7 @@ class TestOPNClient(base.TestCase):
 
         opnclient = client.OPNClient("", "", "")
         csv_data = "id,name\n1,John Doe\n2,Jane Doe"
-        resp = opnclient._post_csv_data("fake_url", csv_data)
+        resp = opnclient._post_csv_data("fake_url", csv_data, raw=False)
         self.assertEqual({"status": "success"}, resp)
 
         request_mock.assert_called_once_with(
@@ -165,7 +168,11 @@ class TestOPNClient(base.TestCase):
         opnclient = client.OPNClient("", "", "")
         csv_data = "id,name\n1,John Doe\n2,Jane Doe"
         self.assertRaises(
-            exceptions.APIError, opnclient._post_csv_data, "fake_url", csv_data
+            exceptions.APIError,
+            opnclient._post_csv_data,
+            "fake_url",
+            csv_data,
+            raw=False,
         )
 
         request_mock.assert_called_once_with(

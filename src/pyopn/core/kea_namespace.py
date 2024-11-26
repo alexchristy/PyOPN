@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, cast
 
 from pyopn.base_namespace import BaseNamespace
 
@@ -20,25 +20,25 @@ class KeaNamespace(BaseNamespace):
         """Access the Kea ctrl_agent controller."""
         if not self._ctrl_agent:
             self._ctrl_agent = self._initialize_client("ctrl_agent", CtrlAgentClient)
-        return self._ctrl_agent
+        return cast(CtrlAgentClient, self._ctrl_agent)
 
     @property
     def dhcpv4(self) -> Dhcpv4Client:
         """Access the Kea dhcpv4 controller."""
         if not self._dhcpv4:
             self._dhcpv4 = self._initialize_client("dhcpv4", Dhcpv4Client)
-        return self._dhcpv4
+        return cast(Dhcpv4Client, self._dhcpv4)
 
     @property
     def leases4(self) -> Leases4Client:
         """Access the Kea leases4 controller."""
         if not self._leases4:
             self._leases4 = self._initialize_client("leases4", Leases4Client)
-        return self._leases4
+        return cast(Leases4Client, self._leases4)
 
     @property
     def service(self) -> ServiceClient:
         """Access the Kea service controller."""
         if not self._service:
             self._service = self._initialize_client("service", ServiceClient)
-        return self._service
+        return cast(ServiceClient, self._service)

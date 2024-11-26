@@ -31,7 +31,7 @@ Pull requests, bug reports, and all other forms of contribution are welcomed and
 
     ```bash
     pip install -r requirements.txt
-    pip install -r test-requirements.txt
+    pip install -r dev-requirements.txt
     ```
 
 5) All done!
@@ -70,6 +70,7 @@ This project uses the [Black](https://github.com/psf/black) formatting tool and 
 - `ruff check --fix` - Runs linting rules.
 - `ruff format` - Runs linter formatting rules.
 - `black .` - Formats code to black standards (Run from root of repository).
+- `mypy src/` - Runs type checking against all source files.
 - `pytest` - Run all tests.
 
 These are configured in the `.pre-commit-config.yaml` and commits will fail unless all commands pass.
@@ -120,7 +121,7 @@ def set_reservation(self, uuid: str, data: dict[str, Any]) -> dict[str, Any]:
     :return: API response
     :rtype: dict[str, Any]
     """
-    return self._post(f"kea/dhcpv4/setReservation/{uuid}", data)
+    return self._post(f"kea/dhcpv4/setReservation/{uuid}", data, raw=False)
 ```
 
 ## Adding a New Endpoint
@@ -155,7 +156,7 @@ def set_reservation(self, uuid: str, data: dict[str, Any]) -> dict[str, Any]:
                 :return: API response
                 :rtype: dict[str, Any]
                 """
-                return self._get("kea/ctrl_agent/get")
+                return self._get("kea/ctrl_agent/get", raw=False)
         ```
 4) In `module_name_namespace.py`:
     * Import all of the API controller classes from `module_name.py`
@@ -187,7 +188,7 @@ def set_reservation(self, uuid: str, data: dict[str, Any]) -> dict[str, Any]:
             def ctrl_agent(self) -> CtrlAgentClient:
                 if not self._ctrl_agent:
                     self._ctrl_agent = self._initialize_client("ctrl_agent", CtrlAgentClient)
-                return self._ctrl_agent
+                return cast(CtrlAgentClient, self._ctrl_agent)
             
         ```
 5) In `pyopn/api.py`:
@@ -204,5 +205,24 @@ def set_reservation(self, uuid: str, data: dict[str, Any]) -> dict[str, Any]:
             def kea(self) -> KeaNamespace:
                 if "kea" not in self._namespaces:
                     self._namespaces["kea"] = KeaNamespace(self)
-                return self._namespaces["kea"]
+                return cast(KeaNamespace, self._namespaces["kea"])
         ```
+
+## No semver label!
+
+![image](https://github.com/user-attachments/assets/1558ccd3-ede2-4963-aa37-5ccfd9ce3c58)
+
+If you recieve the above error it means that you did not attach a semantic (sem) version (ver) label to your PR.
+
+### Adding a Semantic Version Label
+
+1) Click the gear icon by `Labels` on the right hand side of your PR.
+
+    ![image](https://github.com/user-attachments/assets/4a1b0227-4f53-4339-bdcd-91e8e37cc31f)
+
+2) Choose between the labels: `major`, `minor`, and `patch`. If you are unsure which one to choose, see the summary section at the top of the page of this [semantic versioning guide](https://semver.org/).
+
+    ![image](https://github.com/user-attachments/assets/a03f33b4-1f76-4f00-942b-51f8be78f16b)
+
+3) As soon as you add the label, it will kick off the check once again which should pass.
+

@@ -1,6 +1,6 @@
 import logging
 from pathlib import Path
-from typing import Optional, Union
+from typing import Any, Optional, Union, cast
 from urllib.parse import urlparse
 
 import validators
@@ -51,7 +51,7 @@ class OPNsenseAPI(object):
         self.timeout = timeout
 
         # Lazy initialization of namespaces
-        self._namespaces = {}
+        self._namespaces: dict[str, Any] = {}
 
     def _format_base_url(self, base_url: str) -> str:
         """Ensure that the base_url is properly formatted."""
@@ -112,11 +112,11 @@ class OPNsenseAPI(object):
         """Access the ISC DHCPv4 module."""
         if "dhcpv4" not in self._namespaces:
             self._namespaces["dhcpv4"] = Dhcpv4Namespace(self)
-        return self._namespaces["dhcpv4"]
+        return cast(Dhcpv4Namespace, self._namespaces["dhcpv4"])
 
     @property
     def kea(self) -> KeaNamespace:
         """Access the Kea DHCPv4 module."""
         if "kea" not in self._namespaces:
             self._namespaces["kea"] = KeaNamespace(self)
-        return self._namespaces["kea"]
+        return cast(KeaNamespace, self._namespaces["kea"])

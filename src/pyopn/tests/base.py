@@ -19,7 +19,7 @@ import fixtures
 import testtools
 
 
-class TestCase(testtools.TestCase):
+class TestCase(testtools.TestCase):  # type: ignore
     """Test case setup class."""
 
     def setUp(self) -> None:
