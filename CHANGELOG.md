@@ -1,3 +1,15 @@
+# v0.1.17 (Tue Nov 26 2024)
+
+#### ⚠️ Pushed to `main`
+
+- Update publish workflow ([@alexchristy](https://github.com/alexchristy))
+
+#### Authors: 1
+
+- Alex Christy ([@alexchristy](https://github.com/alexchristy))
+
+---
+
 # v0.1.16 (Tue Nov 26 2024)
 
 #### ⚠️ Pushed to `main`
