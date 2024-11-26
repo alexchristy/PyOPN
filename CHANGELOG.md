@@ -1,3 +1,15 @@
+# v0.1.20 (Tue Nov 26 2024)
+
+#### ⚠️ Pushed to `main`
+
+- Update publish trigger ([@alexchristy](https://github.com/alexchristy))
+
+#### Authors: 1
+
+- Alex Christy ([@alexchristy](https://github.com/alexchristy))
+
+---
+
 # v0.1.19 (Tue Nov 26 2024)
 
 #### ⚠️ Pushed to `main`
