@@ -1,3 +1,15 @@
+# v0.1.24 (Tue Nov 26 2024)
+
+#### ⚠️ Pushed to `main`
+
+- Update test requirements ([@alexchristy](https://github.com/alexchristy))
+
+#### Authors: 1
+
+- Alex Christy ([@alexchristy](https://github.com/alexchristy))
+
+---
+
 # v0.1.23 (Tue Nov 26 2024)
 
 #### ⚠️ Pushed to `main`
