@@ -1,3 +1,15 @@
+# v0.1.15 (Tue Nov 26 2024)
+
+#### ⚠️ Pushed to `main`
+
+- Update pr label check workflow ([@alexchristy](https://github.com/alexchristy))
+
+#### Authors: 1
+
+- Alex Christy ([@alexchristy](https://github.com/alexchristy))
+
+---
+
 # v0.1.14 (Tue Nov 26 2024)
 
 #### ⚠️ Pushed to `main`
