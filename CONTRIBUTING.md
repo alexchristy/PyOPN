@@ -31,7 +31,7 @@ Pull requests, bug reports, and all other forms of contribution are welcomed and
 
     ```bash
     pip install -r requirements.txt
-    pip install -r test-requirements.txt
+    pip install -r dev-requirements.txt
     ```
 
 5) All done!
@@ -70,6 +70,7 @@ This project uses the [Black](https://github.com/psf/black) formatting tool and 
 - `ruff check --fix` - Runs linting rules.
 - `ruff format` - Runs linter formatting rules.
 - `black .` - Formats code to black standards (Run from root of repository).
+- `mypy src/` - Runs type checking against all source files.
 - `pytest` - Run all tests.
 
 These are configured in the `.pre-commit-config.yaml` and commits will fail unless all commands pass.
@@ -206,3 +207,5 @@ def set_reservation(self, uuid: str, data: dict[str, Any]) -> dict[str, Any]:
                     self._namespaces["kea"] = KeaNamespace(self)
                 return cast(KeaNamespace, self._namespaces["kea"])
         ```
+
+## No semver label!
