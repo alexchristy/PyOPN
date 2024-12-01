@@ -496,6 +496,27 @@ class ServiceClient(client.OPNClient):
         """
         return self._post("kea/service/reconfigure", {}, raw=False)
 
+    def restart(self) -> dict[str, Any]:
+        """Restart the Kea DHCPv4 service.
+
+        :return: API response
+        :rtype: dict[str, Any]
+        """
+        return self._post("kea/service/restart", {}, raw=False)
+
+    def start(self) -> dict[str, Any]:
+        """Start the Kea DHCPv4 service.
+
+        **Note:** This only controls the general Kea service which requires that the ISC
+        DHCP service is disabled on all interfaces before it can be enabled. Additionally,
+        make sure to enable the Kea DHCPv4 server with a POST to `kea/dhcpv4/set` and
+        `"dhcpv4": {"enabled": "1"}`.
+
+        :return: API response
+        :rtype: dict[str, Any]
+        """
+        return self._post("kea/service/start", {}, raw=False)
+
     def status(self) -> dict[str, Any]:
         """Get the status of the Kea DHCP service.
 
@@ -503,3 +524,11 @@ class ServiceClient(client.OPNClient):
         :rtype: dict[str, Any]
         """
         return self._get("kea/service/status", raw=False)
+
+    def stop(self) -> dict[str, Any]:
+        """Stop the Kea DHCPv4 service.
+
+        :return: API response
+        :rtype: dict[str, Any]
+        """
+        return self._post("kea/service/stop", {}, raw=False)
