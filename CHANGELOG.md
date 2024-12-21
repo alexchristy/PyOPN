@@ -1,3 +1,15 @@
+# v0.2.0 (Sat Dec 21 2024)
+
+#### 🚀 Enhancement
+
+- Kea v2 [#6](https://github.com/alexchristy/PyOPN/pull/6) ([@alexchristy](https://github.com/alexchristy))
+
+#### Authors: 1
+
+- Alex Christy ([@alexchristy](https://github.com/alexchristy))
+
+---
+
 # v0.1.28 (Tue Nov 26 2024)
 
 #### ⚠️ Pushed to `main`
