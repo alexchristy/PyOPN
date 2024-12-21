@@ -512,6 +512,9 @@ class ServiceClient(client.OPNClient):
         make sure to enable the Kea DHCPv4 server with a POST to `kea/dhcpv4/set` and
         `"dhcpv4": {"enabled": "1"}`.
 
+        **Note 2:** If the Kea service refuses to start, check the configuration manually
+        or run the command `kea-dhcp4 -c /usr/local/etc/kea/kea-dhcp4.conf` to see the error.
+
         :return: API response
         :rtype: dict[str, Any]
         """
